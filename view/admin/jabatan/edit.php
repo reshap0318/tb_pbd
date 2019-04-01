@@ -13,14 +13,14 @@ Edit Jabatan
     <div class="card-block">
         <form id="second" action="/tb_pbd/controller/jabatanController.php?aksi=update" method="post" novalidate>
             <?php
-              $nrp = $_GET['nrp_nip'];
-              $sql = "select * from jabatan";
+              $id = $_GET['id'];
+              $sql = "select * from jabatan where id=$id";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
             <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/admin/jabatan/_field.php'; ?>
 
-            <<?php } ?>
+            <?php } ?>
             <div class="row">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">

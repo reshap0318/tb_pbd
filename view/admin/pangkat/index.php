@@ -32,7 +32,6 @@ Pangkat
                       <td style="width:20px" class="text-center"><?php echo ++$no;?></td>
                       <td><?php echo $data['nama'];?></td>
                       <td style="width:100px">
-                        <a href="/tb_pbd/view/admin/pangkat/detail.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Detail</a>
                         <a href="/tb_pbd/view/admin/pangkat/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
                         <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>
                       </td>

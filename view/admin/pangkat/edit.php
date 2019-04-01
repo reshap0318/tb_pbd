@@ -13,14 +13,14 @@ Edit Pangkat
     <div class="card-block">
         <form id="second" action="/tb_pbd/controller/pangkatController.php?aksi=update" method="post" novalidate>
             <?php
-              $nrp = $_GET['nrp_nip'];
-              $sql = "select * from pangkat";
+              $id = $_GET['id'];
+              $sql = "select * from pangkat where id=$id";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
             <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/admin/pangkat/_field.php'; ?>
 
-            <<?php } ?>
+            <?php } ?>
             <div class="row">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">

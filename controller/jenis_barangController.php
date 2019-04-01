@@ -6,7 +6,7 @@
   $aksi = null;
   $status = null;
   $pesan = [];
-  $link = '/tb_pbd/view/admin/satker';
+  $link = '/tb_pbd/view/admin/jenis_barang';
 
   // die(var_dump(isset($_GET['aksi'])));
   if(isset($_GET['aksi'])){
@@ -34,7 +34,7 @@
         array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
       }
 
-      $sql = "insert into satker(id,nama) values ('$id','$nama')";
+      $sql = "insert into barang_jenis(id,nama) values ('$id','$nama')";
   }
 
 
@@ -56,7 +56,7 @@
 
       $status = 'success';
       array_push($pesan,'Berhasil Mengubah Satuan Kerja');
-      $sql = "update satker set nama='$nama' where id = '$id'";
+      $sql = "update barang_jenis set nama='$nama' where id = '$id'";
   }
 
 
@@ -71,7 +71,7 @@
         array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
       }
 
-      $sql = "delete from satker where id = '$id'";
+      $sql = "delete from barang_jenis where id = '$id'";
   }
 
   if($status != 'eror'){

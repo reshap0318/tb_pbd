@@ -11,7 +11,7 @@ Create Satuan Kerja
 <?php startblock('content') ?>
 <div class="card">
     <div class="card-block">
-        <form id="second" action="/tb_pbd/controller/satkerController.php?aksi=create" method="post" novalidate>
+        <form id="satker" action="/tb_pbd/controller/satkerController.php?aksi=create" method="post">
             <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/admin/satker/_field.php'; ?>
             <div class="row">
                 <div class="col-sm-12 text-center">

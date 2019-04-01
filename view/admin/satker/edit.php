@@ -13,14 +13,14 @@ Edit Satuan Kerja
     <div class="card-block">
         <form id="second" action="/tb_pbd/controller/satkerController.php?aksi=update" method="post" novalidate>
             <?php
-              $nrp = $_GET['nrp_nip'];
-              $sql = "select * from satker";
+              $id = $_GET['id'];
+              $sql = "select * from satker where id=$id";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
             <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/admin/satker/_field.php'; ?>
 
-            <<?php } ?>
+            <?php } ?>
             <div class="row">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">

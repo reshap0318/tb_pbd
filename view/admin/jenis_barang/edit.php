@@ -13,8 +13,8 @@ Edit Jenis Barang
     <div class="card-block">
         <form id="second" action="/tb_pbd/controller/jenis_barangController.php?aksi=update" method="post" novalidate>
             <?php
-              $nrp = $_GET['nrp_nip'];
-              $sql = "select * from barang_jenis";
+              $id = $_GET['id'];
+              $sql = "select * from barang_jenis where id=$id";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>

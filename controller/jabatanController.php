@@ -6,7 +6,7 @@
   $aksi = null;
   $status = null;
   $pesan = [];
-  $link = '/tb_pbd/view/admin/satker';
+  $link = '/tb_pbd/view/admin/jabatan';
 
   // die(var_dump(isset($_GET['aksi'])));
   if(isset($_GET['aksi'])){
@@ -18,7 +18,7 @@
 
   if($aksi=='create' && $status != 'eror'){
       $status = 'success';
-      array_push($pesan,'Berhasil Menambahkan Satuan Kerja');
+      array_push($pesan,'Berhasil Menambahkan Jabatan');
 
       if(isset($_POST['id'])){
         $id = $_POST['id'];
@@ -34,7 +34,7 @@
         array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
       }
 
-      $sql = "insert into satker(id,nama) values ('$id','$nama')";
+      $sql = "insert into jabatan(id,nama) values ('$id','$nama')";
   }
 
 
@@ -55,14 +55,14 @@
       }
 
       $status = 'success';
-      array_push($pesan,'Berhasil Mengubah Satuan Kerja');
-      $sql = "update satker set nama='$nama' where id = '$id'";
+      array_push($pesan,'Berhasil Mengubah Jabatan');
+      $sql = "update jabatan set nama='$nama' where id = '$id'";
   }
 
 
   elseif($aksi=='delete' && $status != 'eror'){
       $status = 'success';
-      array_push($pesan,'Berhasil Menghapus Satuan Kerja');
+      array_push($pesan,'Berhasil Menghapus Jabatan');
 
       if(isset($_POST['id'])){
         $id = $_POST['id'];
@@ -71,7 +71,7 @@
         array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
       }
 
-      $sql = "delete from satker where id = '$id'";
+      $sql = "delete from jabatan where id = '$id'";
   }
 
   if($status != 'eror'){

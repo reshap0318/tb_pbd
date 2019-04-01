@@ -5,7 +5,7 @@
 <!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-basic-buttons.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Nov 2018 03:12:46 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-    <title>TB Kelompok 6 | <?php startblock('title') ?><?php endblock() ?></title>
+    <title>TB Kelompok 8 | <?php startblock('title') ?><?php endblock() ?></title>
 
     <style type="text/css">
         .sembunyi{
@@ -524,6 +524,9 @@
     <script type="text/javascript" src="/tb_pbd/editor/assets/js/modalEffects.js"></script>
     <script type="text/javascript" src="/tb_pbd/editor/assets/js/classie.js"></script>
     <script type="text/javascript" src="/tb_pbd/editor/assets/pages/j-pro/js/custom/currency-form.js"></script>
+
+  	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+  	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
     <!-- Custom js -->
     <?php startblock('script') ?><?php endblock() ?>
     <?php startblock('table') ?><?php endblock() ?>
