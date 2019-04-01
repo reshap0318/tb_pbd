@@ -6,7 +6,7 @@
   $aksi = null;
   $status = null;
   $pesan = [];
-  $link = '/tb_pbd/view/admin/pangkat';
+  $link = '/tb_pbd/view/management/pangkat';
 
   // die(var_dump(isset($_GET['aksi'])));
   if(isset($_GET['aksi'])){

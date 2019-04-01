@@ -1,26 +1,26 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
-<?php startblock('title') ?> Edit Merek <?php endblock() ?>
+<?php startblock('title') ?> Edit Barang <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
-<li class="breadcrumb-item"><a href="/tb_pbd/view/admin/merek">Merek</a>
+<li class="breadcrumb-item"><a href="/tb_pbd/view/barang">Barang</a>
 <li class="breadcrumb-item"><a href="#!">Edit</a>
 <?php endblock() ?>
 <?php startblock('breadcrumb-title') ?>
-Edit Merek
+Edit Barang
 <?php endblock() ?>
 
 <?php startblock('content') ?>
 <div class="card">
     <div class="card-block">
-        <form id="second" action="/tb_pbd/controller/merekController.php?aksi=update" method="post" novalidate>
+        <form id="second" action="/tb_pbd/controller/barangController.php?aksi=update" method="post" novalidate>
             <?php
-              $id = $_GET['id'];
-              $sql = "select * from merek where id=$id";
+              $no_serial = $_GET['no_serial'];
+              $sql = "select * from barang where no_serial=$no_serial";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
-            <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/admin/merek/_field.php'; ?>
+            <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/barang/_field.php'; ?>
 
-            <?php } ?>
+            <<?php } ?>
             <div class="row">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">

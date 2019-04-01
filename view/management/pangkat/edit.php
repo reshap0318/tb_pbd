@@ -1,24 +1,24 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
-<?php startblock('title') ?> Edit Jabatan <?php endblock() ?>
+<?php startblock('title') ?> Edit Pangkat <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
-<li class="breadcrumb-item"><a href="/tb_pbd/view/admin/jabatan">Jabatan</a>
+<li class="breadcrumb-item"><a href="/tb_pbd/view/management/pangkat">Pangkat</a>
 <li class="breadcrumb-item"><a href="#!">Edit</a>
 <?php endblock() ?>
 <?php startblock('breadcrumb-title') ?>
-Edit Jabatan
+Edit Pangkat
 <?php endblock() ?>
 
 <?php startblock('content') ?>
 <div class="card">
     <div class="card-block">
-        <form id="second" action="/tb_pbd/controller/jabatanController.php?aksi=update" method="post" novalidate>
+        <form id="second" action="/tb_pbd/controller/pangkatController.php?aksi=update" method="post" novalidate>
             <?php
               $id = $_GET['id'];
-              $sql = "select * from jabatan where id=$id";
+              $sql = "select * from pangkat where id=$id";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
-            <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/admin/jabatan/_field.php'; ?>
+            <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/management/pangkat/_field.php'; ?>
 
             <?php } ?>
             <div class="row">

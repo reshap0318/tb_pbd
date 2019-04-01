@@ -47,7 +47,7 @@ Barang
                       <td class=" text-center"><?php echo $data['dihapuskan'];?></td>
                       <td class=" text-center"><?php echo $data['baik']+$data['rusak']+$data['rusakberat']+$data['dihapuskan'];?></td>
                       <td style="width:100px">
-                        <a href="/tb_pbd/view/admin/barang/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
+                        <a href="/tb_pbd/view/management/barang/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
                         <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>
                       </td>
                   </tr>
@@ -76,7 +76,23 @@ Barang
             className: 'btn-success',
             action: function(e, dt, node, config)
             {
-              window.location.assign("/tb_pbd/view/admin/barang/create.php");
+              window.location.assign("/tb_pbd/view/barang/create.php");
+            }
+        },
+        {
+            text: 'Tambah Merek',
+            className: 'btn-success',
+            action: function(e, dt, node, config)
+            {
+              window.location.assign("/tb_pbd/view/management/merek/create.php");
+            }
+        },
+        {
+            text: 'Tambah Jenis Barang',
+            className: 'btn-success',
+            action: function(e, dt, node, config)
+            {
+              window.location.assign("/tb_pbd/view/management/jenis_barang/create.php");
             }
         },
         {

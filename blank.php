@@ -2,7 +2,7 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/controller/koneksi.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
-<!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-basic-buttons.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Nov 2018 03:12:46 GMT -->
+<!-- Mirrored from colorlib.com//polygon/managementty/default/dt-ext-basic-buttons.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Nov 2018 03:12:46 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
     <title>TB Kelompok 8 | <?php startblock('title') ?><?php endblock() ?></title>
@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="description" content="#">
-    <meta name="keywords" content="Admin , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
+    <meta name="keywords" content="management , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
     <link rel="icon" href="/tb_pbd/img/icon/favicon.ico" type="image/x-icon">
@@ -185,170 +185,38 @@
                         <div class="pcoded-navigatio-lavel">Management</div>
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/admin/user">
+                                <a href="http://localhost/tb_pbd/view/management/user">
                                     <span class="pcoded-micon"><i class="icofont icofont-users"></i></span>
                                     <span class="pcoded-mtext">Users</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/admin/satker">
+                                <a href="http://localhost/tb_pbd/view/management/satker">
                                     <span class="pcoded-micon"><i class="icofont icofont-ui-office"></i></span>
                                     <span class="pcoded-mtext">Satuan Kerja</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/admin/jabatan">
+                                <a href="http://localhost/tb_pbd/view/management/jabatan">
                                     <span class="pcoded-micon"><i class="icofont icofont-robot-face"></i></span>
                                     <span class="pcoded-mtext">Jabatan</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/admin/pangkat">
+                                <a href="http://localhost/tb_pbd/view/management/pangkat">
                                     <span class="pcoded-micon"><i class="icofont icofont-throne"></i></span>
                                     <span class="pcoded-mtext">Pangkat</span>
-                                </a>
-                            </li>
-                            <li class="">
-                                <a href="http://localhost/tb_pbd/view/admin/merek">
-                                    <span class="pcoded-micon"><i class="icofont icofont-label"></i></span>
-                                    <span class="pcoded-mtext">Merek</span>
                                 </a>
                             </li>
                         </ul>
                         <div class="pcoded-navigatio-lavel">General</div>
                         <ul class="pcoded-item pcoded-left-item">
-                            <li class="pcoded-hasmenu ">
-                                <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="icofont icofont-document-folder"></i></span>
-                                    <span class="pcoded-mtext">Aldo</span>
-                                </a>
-                                <ul class="pcoded-submenu">
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/aldo/fung1/">
-                                            <span class="pcoded-mtext" >Fung 1</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/aldo/fung2/">
-                                            <span class="pcoded-mtext" >Fung 2</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/aldo/fung3/">
-                                            <span class="pcoded-mtext" >Fung 3</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/aldo/fung4/">
-                                            <span class="pcoded-mtext" >Fung 4</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/aldo/fung5/">
-                                            <span class="pcoded-mtext" >Fung 5</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="pcoded-hasmenu ">
-                                <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="icofont icofont-document-folder"></i></span>
-                                    <span class="pcoded-mtext">Icha</span>
-                                </a>
-                                <ul class="pcoded-submenu">
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/icha/fung1/">
-                                            <span class="pcoded-mtext" >Fung 1</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/icha/fung2/">
-                                            <span class="pcoded-mtext" >Fung 2</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/icha/fung3/">
-                                            <span class="pcoded-mtext" >Fung 3</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/icha/fung4/">
-                                            <span class="pcoded-mtext" >Fung 4</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/icha/fung5/">
-                                            <span class="pcoded-mtext" >Fung 5</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="pcoded-hasmenu ">
-                                <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="icofont icofont-document-folder"></i></span>
-                                    <span class="pcoded-mtext">Murda</span>
-                                </a>
-                                <ul class="pcoded-submenu">
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/murda/fung1/">
-                                            <span class="pcoded-mtext" >Fung 1</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/murda/fung2/">
-                                            <span class="pcoded-mtext" >Fung 2</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/murda/fung3/">
-                                            <span class="pcoded-mtext" >Fung 3</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="javascript:void(0)">
-                                            <span class="pcoded-mtext" >Fung 4</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="javascript:void(0)">
-                                            <span class="pcoded-mtext" >Fung 5</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="pcoded-hasmenu ">
-                                <a href="javascript:void(0)">
-                                    <span class="pcoded-micon"><i class="icofont icofont-document-folder"></i></span>
-                                    <span class="pcoded-mtext">Asraf</span>
-                                </a>
-                                <ul class="pcoded-submenu">
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/asraf/fung1/">
-                                            <span class="pcoded-mtext" >Fung 1</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/asraf/fung2/">
-                                            <span class="pcoded-mtext" >Fung 2</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/asraf/fung3/">
-                                            <span class="pcoded-mtext" >Fung 3</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/asraf/fung4/">
-                                            <span class="pcoded-mtext" >Fung 4</span>
-                                        </a>
-                                    </li>
-                                    <li class="">
-                                        <a href="http://localhost/tb_pbd/view/asraf/fung5/">
-                                            <span class="pcoded-mtext" >Fung 5</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                          <li class="">
+                              <a href="http://localhost/tb_pbd/view/barang">
+                                  <span class="pcoded-micon"><i class="icofont icofont-social-dropbox"></i></span>
+                                  <span class="pcoded-mtext">Barang</span>
+                              </a>
+                          </li>
                         </ul>
                     </div>
                 </nav>
@@ -557,5 +425,5 @@
 </body>
 
 
-<!-- Mirrored from colorlib.com//polygon/adminty/default/dt-ext-basic-buttons.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Nov 2018 03:12:49 GMT -->
+<!-- Mirrored from colorlib.com//polygon/managementty/default/dt-ext-basic-buttons.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Nov 2018 03:12:49 GMT -->
 </html>

@@ -6,7 +6,7 @@
   $aksi = null;
   $status = null;
   $pesan = [];
-  $link = '/tb_pbd/view/admin/merek';
+  $link = '/tb_pbd/view/barang';
 
   // die(var_dump(isset($_GET['aksi'])));
   if(isset($_GET['aksi'])){

@@ -6,7 +6,7 @@
   $aksi = null;
   $status = null;
   $pesan = [];
-  $link = '/tb_pbd/view/admin/jenis_barang';
+  $link = '/tb_pbd/view/barang';
 
   // die(var_dump(isset($_GET['aksi'])));
   if(isset($_GET['aksi'])){
@@ -18,7 +18,7 @@
 
   if($aksi=='create' && $status != 'eror'){
       $status = 'success';
-      array_push($pesan,'Berhasil Menambahkan Satuan Kerja');
+      array_push($pesan,'Berhasil Menambahkan Jenis Barang');
 
       if(isset($_POST['id'])){
         $id = $_POST['id'];
@@ -55,14 +55,14 @@
       }
 
       $status = 'success';
-      array_push($pesan,'Berhasil Mengubah Satuan Kerja');
+      array_push($pesan,'Berhasil Mengubah Jenis Barang');
       $sql = "update barang_jenis set nama='$nama' where id = '$id'";
   }
 
 
   elseif($aksi=='delete' && $status != 'eror'){
       $status = 'success';
-      array_push($pesan,'Berhasil Menghapus Satuan Kerja');
+      array_push($pesan,'Berhasil Menghapus Jenis Barang');
 
       if(isset($_POST['id'])){
         $id = $_POST['id'];

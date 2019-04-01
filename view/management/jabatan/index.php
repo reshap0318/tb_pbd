@@ -1,30 +1,30 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 
-<?php startblock('title') ?> Merek <?php endblock() ?>
+<?php startblock('title') ?> Jabatan <?php endblock() ?>
 
 <?php startblock('breadcrumb-link') ?>
-<li class="breadcrumb-item"><a href="#!">Merek</a>
+<li class="breadcrumb-item"><a href="#!">Jabatan</a>
 <?php endblock() ?>
 
 <?php startblock('breadcrumb-title') ?>
-Merek
+Jabatan
 <?php endblock() ?>
 
 <?php startblock('content') ?>
 <div class="card">
   <div class="card-block">
       <div class="dt-responsive table-responsive">
-          <table id="tablemerek" class="table table-striped table-bordered nowrap" style="width:100%">
+          <table id="tablejabatan" class="table table-striped table-bordered nowrap" style="width:100%">
               <thead>
                   <tr>
                       <th style="width:20px" class="text-center">NO</th>
-                      <th>Merek</th>
+                      <th>Jabatan</th>
                       <th style="width:100px">Action</th>
                   </tr>
               </thead>
               <tbody>
                 <?php $no=0;
-                  $sql = "select * from merek";
+                  $sql = "select * from jabatan";
                   $eksekusi = pg_query($sql);
                   while ($data = pg_fetch_assoc($eksekusi)) {
                 ?>
@@ -32,14 +32,14 @@ Merek
                       <td style="width:20px" class="text-center"><?php echo ++$no;?></td>
                       <td><?php echo $data['nama'];?></td>
                       <td style="width:100px">
-                        <a href="/tb_pbd/view/admin/merek/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
+                        <a href="/tb_pbd/view/management/jabatan/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
                         <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>
                       </td>
                   </tr>
                 <?php } ?>
               </tbody>
           </table>
-<form class="" id="formdelete" style="display:none" action="/tb_pbd/controller/merekController.php?aksi=delete" method="post">
+<form class="" id="formdelete" style="display:none" action="/tb_pbd/controller/jabatanController.php?aksi=delete" method="post">
   <input type="text" name="id" value="" id="delete_id">
 </form>
       </div>
@@ -51,17 +51,17 @@ Merek
   <!-- info lebih lanjut bisa di cek di : -->
   <!--editor/assets/pages/data-table/js/data-table-custom.js"-->
   <script type="text/javascript">
-      $('#tablemerek').DataTable(
+      $('#tablejabatan').DataTable(
         {
         "info":     false,
         dom: 'Bfrtip',
         buttons: [
         {
-            text: 'Tambah Merek',
+            text: 'Tambah Jabatan',
             className: 'btn-success',
             action: function(e, dt, node, config)
             {
-              window.location.assign("/tb_pbd/view/admin/merek/create.php");
+              window.location.assign("/tb_pbd/view/management/jabatan/create.php");
             }
         },
         {
