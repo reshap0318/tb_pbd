@@ -1,3 +1,12 @@
+<?php
+
+  session_start();
+  if($_SESSION['status']==1){
+    header("location:/tb_pbd/view/");
+  }
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,7 +58,7 @@
               <div class="row">
                   <div class="col-sm-12">
                       <!-- Authentication card start -->
-                          <form method="POST" action="/tb_pbd/controller/authController.php?aksi=login" aria-label="login" class="md-float-material form-material">
+                          <form method="POST" action="/tb_pbd/controller/auth/login.php" aria-label="login" class="md-float-material form-material">
                               <div class="text-center">
                                   <img src="/tb_pbd/editor/assets/images/logo.png" alt="logo.png">
                               </div>

@@ -10,18 +10,18 @@
   }
 
   include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/controller/koneksi.php';
+  $id = null;
+  $tanggal = null;
+  $nrp_peminjam = null;
+  $nrp_pemberi = 'admin';
   $no_serial = null;
-  $tahun_perolehan = null;
-  $jenis_id = null;
-  $merek_id = null;
-  $type = null;
-  $kondisi = null;
   $keterangan = null;
+  $kondisi = 1;
 
   $aksi = null;
   $status = null;
   $pesan = [];
-  $link = '/tb_pbd/view/barang';
+  $link = '/tb_pbd/view/peminjaman';
 
 
   //validasi dan inisiasi
@@ -32,48 +32,36 @@
     array_push($pesan,'LINK SALAH Periksa LINK');
   }
 
-  if(isset($_POST['no_serial'])){
-    $no_serial = $_POST['no_serial'];
-  }else{
-    $status = 'eror';
-    array_push($pesan,'Pastikan No Serial Terisi Dengan Benar');
+  if($aksi=='delete'){
+    if(isset($_POST['id'])){
+      $id = $_POST['id'];
+    }else{
+      $status = 'eror';
+      array_push($pesan,'ID Tidak ditemukan');
+    }
   }
 
   if($aksi=='create'||$aksi=='update'){
 
-      if(isset($_POST['tahun_perolehan'])){
-        $tahun_perolehan = $_POST['tahun_perolehan'];
+      if(isset($_POST['no_serial'])){
+        $no_serial = explode(",",$_POST['no_serial']);
+      }else{
+        $status = 'eror';
+        array_push($pesan,'Pastikan No Serial Terisi Dengan Benar');
+      }
+
+      if(isset($_POST['tanggal'])){
+        $tanggal = date('Y-m-d', strtotime($_POST['tanggal']));
       }else{
         $status = 'eror';
         array_push($pesan,'Pastikan Tahun Perolehan Terisi Dengan Benar');
       }
 
-      if(isset($_POST['jenis_id'])){
-        $jenis_id = $_POST['jenis_id'];
+      if(isset($_POST['nrp_peminjam'])){
+        $nrp_peminjam = $_POST['nrp_peminjam'];
       }else{
         $status = 'eror';
         array_push($pesan,'Pastikan Jenis Terisi Dengan Benar');
-      }
-
-      if(isset($_POST['merek_id'])){
-        $merek_id = $_POST['merek_id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Merek Terisi Dengan Benar');
-      }
-
-      if(isset($_POST['type'])){
-        $type = $_POST['type'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Type Terisi Dengan Benar');
-      }
-
-      if(isset($_POST['kondisi'])){
-        $kondisi = $_POST['kondisi'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kondisi Terisi Dengan Benar');
       }
 
       if(isset($_POST['keterangan'])){
@@ -87,8 +75,19 @@
 
   if($aksi=='create' && $status != 'eror'){
       $status = 'success';
-      array_push($pesan,'Berhasil Menambahkan Barang');
-      $sql = "insert INTO public.barang(no_serial, tahun_perolehan, jenis_id, merek_id, satker_id, type, kondisi, status, keterangan) VALUES ('$no_serial', '$tahun_perolehan', $jenis_id, $merek_id, 1, '$type', $kondisi, 1, '$keterangan');";
+      array_push($pesan,'Berhasil Menambahkan Peminjaman');
+      for ($i=0; $i < count($no_serial) ; $i++) {
+        $sqlkon = "select kondisi from barang where no_serial = '$no_serial[$i]'";
+        $eksekusi = pg_query($sqlkon);
+        while ($data = pg_fetch_assoc($eksekusi)) {
+            $kondisi = $data['kondisi'];
+        }
+
+        $sqlupbar = "update barang set status=0 where no_serial='$no_serial[$i]'";
+        $eksekusi = pg_query($sqlupbar);
+
+        $sql = "insert INTO public.peminjam(tanggal, kondisi, nrp_peminjam, nrp_pemberi, keterangan, no_serial) VALUES ('$tanggal', $kondisi, '$nrp_peminjam', '$nrp_pemberi', '$keterangan', '$no_serial[$i]')";
+      }
   }
 
 
@@ -102,7 +101,8 @@
   elseif($aksi=='delete' && $status != 'eror'){
       $status = 'success';
       array_push($pesan,'Berhasil Menghapus Barang');
-      $sql = "delete from barang where no_serial = '$no_serial'";
+
+      $sql = "delete from peminjam where id = '$id'";
   }
 
   if($status != 'eror'){

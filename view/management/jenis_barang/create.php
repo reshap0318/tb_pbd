@@ -1,7 +1,7 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Create Jenis Barang <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
-<li class="breadcrumb-item"><a href="/tb_pbd/view/management/jenis_barang/index.php">Jenis Barang</a>
+<li class="breadcrumb-item"><a href="/tb_pbd/view/barang">Jenis Barang</a>
 <li class="breadcrumb-item"><a href="#!">Create</a>
 <?php endblock() ?>
 <?php startblock('breadcrumb-title') ?>

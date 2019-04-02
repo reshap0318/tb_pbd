@@ -1,5 +1,14 @@
 <?php
 
+  session_start();
+  if($_SESSION['status'] == 1){
+    if($_SESSION['hak_akses'] != 1){
+      header("location:javascript://history.go(-1)");
+    }
+  }else{
+    header("location:/tb_pbd/view/auth/login.php");
+  }
+
   include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/controller/koneksi.php';
   $id = null;
   $nama = null;

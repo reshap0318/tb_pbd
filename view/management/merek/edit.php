@@ -1,7 +1,7 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Edit Merek <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
-<li class="breadcrumb-item"><a href="/tb_pbd/view/management/merek">Merek</a>
+<li class="breadcrumb-item"><a href="/tb_pbd/view/barang">Merek</a>
 <li class="breadcrumb-item"><a href="#!">Edit</a>
 <?php endblock() ?>
 <?php startblock('breadcrumb-title') ?>

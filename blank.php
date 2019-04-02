@@ -1,5 +1,13 @@
 <?php require_once 'ti.php' ?>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/controller/koneksi.php'; ?>
+<?php
+
+  session_start();
+  if($_SESSION['status']!=1){
+    header("location:/tb_pbd/view/auth/login.php");
+  }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <!-- Mirrored from colorlib.com//polygon/managementty/default/dt-ext-basic-buttons.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 01 Nov 2018 03:12:46 GMT -->
@@ -112,7 +120,7 @@
                     <a class="mobile-menu" id="mobile-collapse" href="#!">
                         <i class="feather icon-menu"></i>
                     </a>
-                    <a href="index.html">
+                    <a href="/tb_pbd/view">
                         <img class="img-fluid" src="/tb_pbd/editor/assets/images/logo.png" alt="Theme-Logo" />
                     </a>
                     <a class="mobile-options">
@@ -166,7 +174,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="auth-normal-sign-in.html">
+                                        <a href="/tb_pbd/controller/auth/logout.php">
                                             <i class="feather icon-log-out"></i> Logout
                                         </a>
                                     </li>
@@ -182,6 +190,7 @@
             <div class="pcoded-wrapper">
                 <nav class="pcoded-navbar">
                     <div class="pcoded-inner-navbar main-menu">
+                      <?php if($_SESSION['hak_akses'] == 1){ ?>
                         <div class="pcoded-navigatio-lavel">Management</div>
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="">
@@ -209,12 +218,25 @@
                                 </a>
                             </li>
                         </ul>
+                      <?php } ?>
                         <div class="pcoded-navigatio-lavel">General</div>
                         <ul class="pcoded-item pcoded-left-item">
                           <li class="">
                               <a href="http://localhost/tb_pbd/view/barang">
                                   <span class="pcoded-micon"><i class="icofont icofont-social-dropbox"></i></span>
                                   <span class="pcoded-mtext">Barang</span>
+                              </a>
+                          </li>
+                          <li class="">
+                              <a href="http://localhost/tb_pbd/view/peminjaman">
+                                  <span class="pcoded-micon"><i class="icofont icofont-social-dropbox"></i></span>
+                                  <span class="pcoded-mtext">Peminjaman</span>
+                              </a>
+                          </li>
+                          <li class="">
+                              <a href="http://localhost/tb_pbd/view/pengembalian">
+                                  <span class="pcoded-micon"><i class="icofont icofont-social-dropbox"></i></span>
+                                  <span class="pcoded-mtext">Pengembalian</span>
                               </a>
                           </li>
                         </ul>

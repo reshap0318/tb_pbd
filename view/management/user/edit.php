@@ -14,10 +14,18 @@ Edit Users
         <form id="second" action="/tb_pbd/controller/userController.php?aksi=update" method="post" novalidate>
             <?php
               $nrp = $_GET['nrp_nip'];
-              $sql = "select * from users";
+              $sql = "select * from users where nrp='$nrp'";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">NIP / NRP</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="<?php if(isset($data['nrp'])){echo $data['nrp'];} ?>"  id="nrp" name="nrp" placeholder="ex : 1611522012" readonly>
+                    <span class="messages popover-valid"></span>
+                </div>
+            </div>
+
             <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/management/user/_field.php'; ?>
 
             <<?php } ?>

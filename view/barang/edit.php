@@ -14,7 +14,7 @@ Edit Barang
         <form id="second" action="/tb_pbd/controller/barangController.php?aksi=update" method="post" novalidate>
             <?php
               $no_serial = $_GET['no_serial'];
-              $sql = "select * from barang where no_serial=$no_serial";
+              $sql = "select * from barang where no_serial='$no_serial'";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>

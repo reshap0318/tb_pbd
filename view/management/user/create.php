@@ -12,6 +12,15 @@ Create Users
 <div class="card">
     <div class="card-block">
         <form id="second" action="/tb_pbd/controller/userController.php?aksi=create" method="post" novalidate>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">NIP / NRP</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" value="<?php if(isset($data['nrp'])){echo $data['nrp'];} ?>"  id="nrp" name="nrp" placeholder="ex : 1611522012">
+                    <span class="messages popover-valid"></span>
+                </div>
+            </div>
+
             <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/management/user/_field.php'; ?>
             <div class="row">
                 <div class="col-sm-12 text-center">
