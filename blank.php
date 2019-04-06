@@ -194,7 +194,7 @@
             <div class="pcoded-wrapper">
                 <nav class="pcoded-navbar">
                     <div class="pcoded-inner-navbar main-menu">
-                      <?php if($_SESSION['hak_akses'] == 1){ ?>
+                      <?php if($hak_akses == 1 || $hak_akses == 2){ ?>
                         <div class="pcoded-navigatio-lavel">Management</div>
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="">
@@ -203,6 +203,7 @@
                                     <span class="pcoded-mtext">Users</span>
                                 </a>
                             </li>
+                            <?php if($hak_akses == 1){ ?>
                             <li class="">
                                 <a href="http://localhost/tb_pbd/view/management/satker">
                                     <span class="pcoded-micon"><i class="icofont icofont-ui-office"></i></span>
@@ -221,6 +222,7 @@
                                     <span class="pcoded-mtext">Pangkat</span>
                                 </a>
                             </li>
+                            <?php } ?>
                         </ul>
                       <?php } ?>
                         <div class="pcoded-navigatio-lavel">General</div>

@@ -7,7 +7,7 @@
 <?php endblock() ?>
 
 <?php startblock('breadcrumb-title') ?>
-Dashboard <?php echo $_SESSION['status'] ?>
+Dashboard <?php echo $_SESSION['hak_akses'] ?>
 <?php endblock() ?>
 
 <?php startblock('content') ?>

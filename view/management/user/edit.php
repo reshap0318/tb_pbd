@@ -1,13 +1,14 @@
+<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
+
 <?php
 
   if(isset($hak_akses)){
-    if($hak_akses==1 && $hak_akses==2){
+    if($hak_akses==3){
       header("location:/tb_pbd/view/");
     }
   }
 
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Edit Users <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
 <li class="breadcrumb-item"><a href="/tb_pbd/view/management/user">Users</a>
@@ -25,7 +26,7 @@ Edit Users
               $nrp = $_GET['nrp_nip'];
               $sql = "select * from users where nrp='$nrp'";
               if($hak_akses==2){
-                $sql = "select * from users where nrp='$nrp' AND satker_id = $satker_id";
+                $sql = "select * from users where nrp='$nrp' AND satker_id = $satker_id AND nrp!='admin'";
               }
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {

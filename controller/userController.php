@@ -2,8 +2,8 @@
 
   session_start();
   if($_SESSION['status'] == 1){
-    if($_SESSION['hak_akses'] != 1){
-      header("location:/tb_pbd/view/management/user/");
+    if($_SESSION['hak_akses'] == 3){
+      header("location:/tb_pbd/view/");
     }
   }else{
     header("location:/tb_pbd/view/auth/login.php");
@@ -43,6 +43,7 @@
     array_push($pesan,'Pastikan NRP Terisi Dengan Benar');
   }
 
+//validasi
   if($aksi=='create'||$aksi=='update' ||$aksi=='adduser'){
 
       if(isset($_POST['nama'])){
@@ -140,7 +141,8 @@
   if($status != 'eror'){
     $eksekusi = pg_query($sql);
     header('location:'.$link);
-  }else{
+  }
+  else{
     echo "status = ".$status."<br>Pesan = ".$pesan[0]."<br>SQL = ".$sql;
   }
 
