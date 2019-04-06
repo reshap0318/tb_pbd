@@ -4,7 +4,6 @@
 
   session_start();
   if($_SESSION['status']!=1){
-    $_SESSION['pesan'] = ['eror','Anda Belum Login, Silakan Login Terlebih Dahulu'];
     array_push($_SESSION['pesan'],['eror','Anda Belum Login, Silakan Login Terlebih Dahulu']);
     header("location:/tb_pbd/view/auth/login.php");
   }

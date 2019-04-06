@@ -3,9 +3,11 @@
   session_start();
   if($_SESSION['status'] == 1){
     if($_SESSION['hak_akses'] != 1){
-      header("location:javascript://history.go(-1)");
+      array_push($_SESSION['pesan'],['eror','Anda Tidak Memiliki Akses Kesini']);
+      header("location:/tb_pbd/view/");
     }
   }else{
+    array_push($_SESSION['pesan'],['eror','Anda Belum Login, Silakan Login Terlebih Dahulu']);
     header("location:/tb_pbd/view/auth/login.php");
   }
 
@@ -22,76 +24,56 @@
     $aksi = $_GET['aksi'];
   }else{
     $status = 'eror';
-    array_push($pesan,'LINK SALAH Periksa LINK');
+    array_push($_SESSION['pesan'],[$status,'LINK SALAH Periksa LINK']);
   }
 
-  if($aksi=='create' && $status != 'eror'){
-      $status = 'success';
-      array_push($pesan,'Berhasil Menambahkan Satuan Kerja');
+  if(isset($_POST['id'])){
+    $id = $_POST['id'];
+  }else{
+    $status = 'eror';
+    array_push($_SESSION['pesan'],[$status,'Pastikan Kode Terisi Dengan Benar']);
+  }
 
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
+  if($aksi=='create' || $aksi=='update'){
       if(isset($_POST['nama'])){
         $nama = $_POST['nama'];
       }else{
         $status = 'eror';
-        array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
+        array_push($_SESSION['pesan'],[$status,'Pastikan Nama Terisi Dengan Benar']);
       }
+  }
+
+  if($aksi=='create' && $status != 'eror'){
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Menambahkan Satuan Kerja']);
 
       $sql = "insert into satker(id,nama) values ('$id','$nama')";
   }
 
-
   elseif($aksi=='update' && $status != 'eror'){
-
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
-      if(isset($_POST['nama'])){
-        $nama = $_POST['nama'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
-      }
-
-      $status = 'success';
-      array_push($pesan,'Berhasil Mengubah Satuan Kerja');
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Merubah Satuan Kerja']);
       $sql = "update satker set nama='$nama' where id = '$id'";
   }
 
-
   elseif($aksi=='delete' && $status != 'eror'){
-      $status = 'success';
-      array_push($pesan,'Berhasil Menghapus Satuan Kerja');
-
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Menghapus Satuan Kerja']);
       $sql = "delete from satker where id = '$id'";
   }
 
   if($status != 'eror'){
-    $eksekusi = pg_query($sql);
+    try {
+      $eksekusi = pg_query($sql);
+    } catch (\Exception $e) {
+      array_push($_SESSION['pesan'],['eror',$e]);
+    }
   }
 
 
   // echo "id = ".$id;
   header('location:'.$link);
 
-  echo "status = ".$status."<br>Pesan = ".$pesan[0];
   // return ['status'=>$status,'pesan'=>$pesan];
 
 ?>

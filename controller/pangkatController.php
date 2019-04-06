@@ -3,15 +3,12 @@
   session_start();
   if($_SESSION['status'] == 1){
     if($_SESSION['hak_akses'] != 1){
-      header("location:javascript://history.go(-1)");
+      array_push($_SESSION['pesan'],['eror','Anda Tidak Memiliki Akses Kesini']);
+      header("location:/tb_pbd/view/");
     }
   }else{
+    array_push($_SESSION['pesan'],['eror','Anda Belum Login, Silakan Login Terlebih Dahulu']);
     header("location:/tb_pbd/view/auth/login.php");
-  }
-
-  session_start();
-  if($_SESSION['status'] == 1 && $_SESSION['hak_akses'] == 1 ){
-    header("location:javascript://history.go(-1)");
   }
 
   include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/controller/koneksi.php';
@@ -30,61 +27,40 @@
     array_push($pesan,'LINK SALAH Periksa LINK');
   }
 
-  if($aksi=='create' && $status != 'eror'){
-      $status = 'success';
-      array_push($pesan,'Berhasil Menambahkan Pangkat');
+  if(isset($_POST['id'])){
+    $id = $_POST['id'];
+  }else{
+    $status = 'eror';
+    array_push($_SESSION['pesan'],[$status,'Pastikan Kode Terisi Dengan Benar']);
+  }
 
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
+  if($aksi=='create' || $aksi=='update'){
       if(isset($_POST['nama'])){
         $nama = $_POST['nama'];
       }else{
         $status = 'eror';
-        array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
+        array_push($_SESSION['pesan'],[$status,'Pastikan Nama Terisi Dengan Benar']);
       }
+  }
+
+  if($aksi=='create' && $status != 'eror'){
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Menambahkan Pangkat']);
 
       $sql = "insert into pangkat(id,nama) values ('$id','$nama')";
   }
 
 
   elseif($aksi=='update' && $status != 'eror'){
-
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
-      if(isset($_POST['nama'])){
-        $nama = $_POST['nama'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
-      }
-
-      $status = 'success';
-      array_push($pesan,'Berhasil Mengubah Pangkat');
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Mengubah Pangkat']);
       $sql = "update pangkat set nama='$nama' where id = '$id'";
   }
 
 
   elseif($aksi=='delete' && $status != 'eror'){
-      $status = 'success';
-      array_push($pesan,'Berhasil Menghapus Pangkat');
-
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Menghapus Pangkat']);
       $sql = "delete from pangkat where id = '$id'";
   }
 
