@@ -7,25 +7,29 @@
       </div>
   </div>
 
-  <div class="form-group row">
-      <label class="col-sm-2 col-form-label">Satuan Kerja</label>
-      <div class="col-sm-10">
-          <select class="form-control" name="satker_id">
-            <?php
-              $sql = "select id, nama from satker";
-              $eksekusi = pg_query($sql);
-              while ($satker = pg_fetch_assoc($eksekusi)) {
-                if($satker['id']==$data['satker_id']){
-                  echo '<option value="'.$satker['id'].'" selected>'.$satker['nama'].'</option>';
-                }else{
-                  echo '<option value="'.$satker['id'].'">'.$satker['nama'].'</option>';
+  <?php
+  if($hak_akses==1){
+  ?>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Satuan Kerja</label>
+        <div class="col-sm-10">
+            <select class="form-control" name="satker_id">
+              <?php
+                $sql = "select id, nama from satker";
+                $eksekusi = pg_query($sql);
+                while ($satker = pg_fetch_assoc($eksekusi)) {
+                  if($satker['id']==$data['satker_id']){
+                    echo '<option value="'.$satker['id'].'" selected>'.$satker['nama'].'</option>';
+                  }else{
+                    echo '<option value="'.$satker['id'].'">'.$satker['nama'].'</option>';
+                  }
                 }
-              }
-            ?>
-          </select>
-          <span class="messages popover-valid"></span>
-      </div>
-  </div>
+              ?>
+            </select>
+            <span class="messages popover-valid"></span>
+        </div>
+    </div>
+  <?php } ?>
 
   <div class="form-group row">
       <label class="col-sm-2 col-form-label">Jabatan</label>
@@ -110,7 +114,9 @@
       <label class="col-sm-2 col-form-label">Hak Akses</label>
       <div class="col-sm-10">
         <select class="form-control" name="hak_akses">
+          <?php if($hak_akses==1){ ?>
           <option value="1" <?php if(isset($data['hak_akses'])){if($data['hak_akses']==1){echo "selected";}} ?>>Admin</option>
+          <?php } ?>
           <option value="2" <?php if(isset($data['hak_akses'])){if($data['hak_akses']==2){echo "selected";}} ?>>Pemilik</option>
           <option value="3" <?php if(isset($data['hak_akses'])){if($data['hak_akses']==3){echo "selected";}} ?>>Peminjam</option>
         </select>

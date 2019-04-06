@@ -1,3 +1,13 @@
+<?php
+
+  session_start();
+  if(isset($_SESSION['hak_akses'])){
+    if($_SESSION['hak_akses']==1 || $_SESSION['hak_akses']==2){
+      header("location:/tb_pbd/view/");
+    }
+  }
+
+?>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Edit Peminjaman <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>

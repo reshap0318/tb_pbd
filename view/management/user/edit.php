@@ -1,3 +1,12 @@
+<?php
+
+  if(isset($hak_akses)){
+    if($hak_akses==1 && $hak_akses==2){
+      header("location:/tb_pbd/view/");
+    }
+  }
+
+?>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Edit Users <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
@@ -15,6 +24,9 @@ Edit Users
             <?php
               $nrp = $_GET['nrp_nip'];
               $sql = "select * from users where nrp='$nrp'";
+              if($hak_akses==2){
+                $sql = "select * from users where nrp='$nrp' AND satker_id = $satker_id";
+              }
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>

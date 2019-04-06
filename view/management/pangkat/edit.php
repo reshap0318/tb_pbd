@@ -1,3 +1,12 @@
+<?php
+
+  if(isset($_SESSION['hak_akses'])){
+    if($_SESSION['hak_akses']==1){
+      header("location:/tb_pbd/view/");
+    }
+  }
+
+?>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Edit Pangkat <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>

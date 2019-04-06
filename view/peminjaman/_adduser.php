@@ -81,17 +81,6 @@
                           <span class="messages popover-valid"></span>
                         </div>
                     </div>
-
-                    <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Hak Akses</label>
-                        <div class="col-sm-10">
-                          <select class="form-control" name="hak_akses">
-                            <option value="2" <?php if(isset($data['hak_akses'])){if($data['hak_akses']==2){echo "selected";}} ?>>Pemilik</option>
-                            <option value="3" <?php if(isset($data['hak_akses'])){if($data['hak_akses']==3){echo "selected";}} ?>>Peminjam</option>
-                          </select>
-                          <span class="messages popover-valid"></span>
-                        </div>
-                    </div>
               </div>
               <div class="modal-footer">
                   <button type="submit" class="btn btn-primary m-b-0">Submit</button>

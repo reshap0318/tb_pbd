@@ -3,7 +3,7 @@
   session_start();
   if($_SESSION['status'] == 1){
     if($_SESSION['hak_akses'] != 1){
-      header("location:javascript://history.go(-1)");
+      header("location:/tb_pbd/view/management/user/");
     }
   }else{
     header("location:/tb_pbd/view/auth/login.php");
@@ -29,14 +29,16 @@
   //validasi dan inisiasi
   if(isset($_GET['aksi'])){
     $aksi = $_GET['aksi'];
-  }else{
+  }
+  else{
     $status = 'eror';
     array_push($pesan,'LINK SALAH Periksa LINK');
   }
 
   if(isset($_POST['nrp'])){
     $nrp = $_POST['nrp'];
-  }else{
+  }
+  else{
     $status = 'eror';
     array_push($pesan,'Pastikan NRP Terisi Dengan Benar');
   }
@@ -45,28 +47,31 @@
 
       if(isset($_POST['nama'])){
         $nama = $_POST['nama'];
-      }else{
+      }
+      else{
         $status = 'eror';
         array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
       }
 
       if(isset($_POST['satker_id'])){
         $satker_id = $_POST['satker_id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Satuan Kerja Terisi Dengan Benar');
+      }
+      else{
+        $satker_id = $_SESSION['satker_id'];
       }
 
       if(isset($_POST['jabatan_id'])){
         $jabatan_id = $_POST['jabatan_id'];
-      }else{
+      }
+      else{
         $status = 'eror';
         array_push($pesan,'Pastikan Jabatan Terisi Dengan Benar');
       }
 
       if(isset($_POST['pangkat_id'])){
         $pangkat_id = $_POST['pangkat_id'];
-      }else{
+      }
+      else{
         $status = 'eror';
         array_push($pesan,'Pastikan Pangkat Terisi Dengan Benar');
       }
@@ -74,34 +79,37 @@
       if($aksi=='create'||$aksi=='update'){
           if(isset($_POST['password'])){
             $password = md5($_POST['password']);
-          }else{
+          }
+          else{
             $status = 'eror';
             array_push($pesan,'Pastikan Kondisi Terisi Dengan Benar');
           }
 
           if(isset($_POST['no_telepon'])){
             $no_telepon = $_POST['no_telepon'];
-          }else{
+          }
+          else{
             $status = 'eror';
             array_push($pesan,'Pastikan Keterangan Terisi Dengan Benar');
           }
 
           if(isset($_POST['alamat'])){
             $alamat = $_POST['alamat'];
-          }else{
+          }
+          else{
             $status = 'eror';
             array_push($pesan,'Pastikan Keterangan Terisi Dengan Benar');
           }
-      }
 
-      if(isset($_POST['hak_akses'])){
-        $hak_akses = $_POST['hak_akses'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Hak Akses Terisi Dengan Benar');
+          if(isset($_POST['hak_akses'])){
+            $hak_akses = $_POST['hak_akses'];
+          }
+          else{
+            $status = 'eror';
+            array_push($pesan,'Pastikan Hak Akses Terisi Dengan Benar');
+          }
       }
   }
-
 
   if($aksi=='create' && $status != 'eror'){
       $status = 'success';
@@ -109,13 +117,11 @@
       $sql = "INSERT INTO public.users(nrp, nama, satker_id, pangkat_id, jabatan_id, password, alamat, no_telepon, hak_akses) VALUES ('$nrp', '$nama', $satker_id, $pangkat_id, $jabatan_id, '$password', '$alamat', '$no_telepon', $hak_akses)";
   }
 
-
   elseif($aksi=='update' && $status != 'eror'){
       $status = 'success';
       array_push($pesan,'Berhasil Mengubah User');
       $sql = "UPDATE public.users SET nrp='$nrp', nama='$nama', satker_id=$satker_id, pangkat_id=$pangkat_id, jabatan_id=$jabatan_id, password='$password', alamat='$alamat', no_telepon='$no_telepon', hak_akses=$hak_akses WHERE nrp='$nrp';";
   }
-
 
   elseif($aksi=='delete' && $status != 'eror'){
       $status = 'success';
@@ -133,13 +139,14 @@
 
   if($status != 'eror'){
     $eksekusi = pg_query($sql);
+    header('location:'.$link);
+  }else{
+    echo "status = ".$status."<br>Pesan = ".$pesan[0]."<br>SQL = ".$sql;
   }
 
 
   // echo "id = ".$id;
-  header('location:'.$link);
 
-  echo "status = ".$status."<br>Pesan = ".$pesan[0]."<br>SQL = ".$sql;
   // return ['status'=>$status,'pesan'=>$pesan];
 
 ?>

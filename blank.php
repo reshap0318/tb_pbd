@@ -6,6 +6,10 @@
   if($_SESSION['status']!=1){
     header("location:/tb_pbd/view/auth/login.php");
   }
+  $satker_id = $_SESSION['satker_id'];
+  $nama = $_SESSION['nama'];
+  $nrp = $_SESSION['nrp'];
+  $hak_akses = $_SESSION['hak_akses'];
 
 ?>
 <!DOCTYPE html>

@@ -1,8 +1,10 @@
 <?php
 
   session_start();
-  if($_SESSION['status']==1){
-    header("location:/tb_pbd/view/");
+  if(isset($_SESSION['status'])){
+    if($_SESSION['status']==1){
+      header("location:/tb_pbd/view/");
+    }
   }
 
 ?>

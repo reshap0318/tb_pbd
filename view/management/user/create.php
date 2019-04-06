@@ -1,3 +1,12 @@
+<?php
+
+  if(isset($hak_akses)){
+    if($hak_akses==1 && $hak_akses==2){
+      header("location:/tb_pbd/view/");
+    }
+  }
+
+?>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Create Users <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>

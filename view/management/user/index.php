@@ -1,3 +1,12 @@
+<?php
+
+  if(isset($hak_akses)){
+    if($hak_akses==1 && $hak_akses==2){
+      header("location:/tb_pbd/view/");
+    }
+  }
+
+?>
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 
 <?php startblock('title') ?> Users Management <?php endblock() ?>
@@ -30,6 +39,9 @@ Users Management
               <tbody>
                 <?php $no=0;
                   $sql = "select users.nrp, users.nama as nama, satker.nama as satker, pangkat.nama as pangkat, users.no_telepon, users.hak_akses from users join satker on users.satker_id = satker.id join pangkat on users.pangkat_id = pangkat.id";
+                  if($hak_akses==2){
+                    $sql = "select users.nrp, users.nama as nama, satker.nama as satker, pangkat.nama as pangkat, users.no_telepon, users.hak_akses from users join satker on users.satker_id = satker.id join pangkat on users.pangkat_id = pangkat.id where users.satker_id = $satker_id AND nrp!='admin'";
+                  }
                   $eksekusi = pg_query($sql);
                   while ($data = pg_fetch_assoc($eksekusi)) {
                 ?>
@@ -42,9 +54,15 @@ Users Management
                       <td><?php echo $data['no_telepon']?></td>
                       <td><?php if($data['hak_akses'] == 1 ){echo "Admin";}elseif($data['hak_akses'] == 2){echo "Pemilik";}elseif($data['hak_akses'] == 3){echo "Peminjam";}?></td>
                       <td style="width:100px">
+                        <?php if($hak_akses==1 || $hak_akses==2){ ?>
                         <a href="/tb_pbd/view/management/user/detail.php?nrp_nip=<?php echo $data['nrp']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Detail</a>
+                        <?php } ?>
+                        <?php if($hak_akses==1 || $hak_akses==2){ ?>
                         <a href="/tb_pbd/view/management/user/edit.php?nrp_nip=<?php echo $data['nrp']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
+                        <?php } ?>
+                        <?php if($hak_akses==1 || $hak_akses==2){ ?>
                         <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['nrp']; ?>)">Delete</a>
+                        <?php } ?>
                       </td>
                   </tr>
                 <?php } ?>

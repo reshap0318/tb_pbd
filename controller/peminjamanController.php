@@ -100,8 +100,15 @@
 
   elseif($aksi=='delete' && $status != 'eror'){
       $status = 'success';
-      array_push($pesan,'Berhasil Menghapus Barang');
+      array_push($pesan,'Berhasil Menghapus Peminjaman');
 
+      $peminjaman_no_serial = "select no_serial from peminjam where id=$id";
+      $eksekusi_no_serial = pg_query($peminjaman_no_serial);
+      while ($data = pg_fetch_assoc($eksekusi_no_serial)) {
+        $no_serial = $data['no_serial'];
+        $sqlupbar = "update barang set status=1 where no_serial='$no_serial'";
+        $eksekusi = pg_query($sqlupbar);
+      }
       $sql = "delete from peminjam where id = '$id'";
   }
 
