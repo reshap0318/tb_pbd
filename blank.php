@@ -4,6 +4,8 @@
 
   session_start();
   if($_SESSION['status']!=1){
+    $_SESSION['pesan'] = ['eror','Anda Belum Login, Silakan Login Terlebih Dahulu'];
+    array_push($_SESSION['pesan'],['eror','Anda Belum Login, Silakan Login Terlebih Dahulu']);
     header("location:/tb_pbd/view/auth/login.php");
   }
   $satker_id = $_SESSION['satker_id'];
@@ -450,6 +452,33 @@
 
   gtag('config', 'UA-23581568-13');
 </script>
+
+	<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <script type="text/javascript">
+      toastr.options.progressBar = true;
+      <?php
+        if(isset($_SESSION['pesan'])){
+          $pesan = $_SESSION['pesan'];
+          if(count($pesan)>0){
+            for ($i=0; $i < count($pesan); $i++) {
+      ?>
+              <?php if($pesan[$i][0]=='eror'){ ?>
+                toastr.error("<?php echo $pesan[$i][1] ?>", 'Eror', {timeOut: 5000});
+              <?php }elseif($pesan[$i][0]=='berhasil'){ ?>
+                toastr.success("<?php echo $pesan[$i][1] ?>", 'Berhasil', {timeOut: 5000});
+              <?php }elseif($pesan[$i][0]=='warning'){ ?>
+                toastr.warning("<?php echo $pesan[$i][1] ?>", 'Hati-Hati', {timeOut: 5000});
+              <?php } ?>
+      <?php
+            }
+          }
+        }
+        if($_SESSION['status']==1){
+          $_SESSION['pesan'] = [];
+        }
+      ?>
+  </script>
 </body>
 
 

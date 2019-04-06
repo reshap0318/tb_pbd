@@ -143,5 +143,25 @@
 
     gtag('config', 'UA-23581568-13');
   </script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+  <script type="text/javascript">
+      toastr.options.progressBar = true;
+      <?php
+        if(isset($_SESSION['pesan'])){
+          $pesan = $_SESSION['pesan'];
+          if(count($pesan)>0){
+            for ($i=0; $i < count($pesan); $i++) {
+      ?>
+              <?php if($pesan[$i][0]=='eror'){ ?>
+                toastr.error("<?php echo $pesan[$i][1] ?>", 'Eror', {timeOut: 5000});
+              <?php } ?>
+      <?php
+            }
+          }
+          $_SESSION['pesan'] = [];
+        }
+      ?>
+  </script>
   </body>
 </html>

@@ -1,13 +1,14 @@
+<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php
 
-  if(isset($_SESSION['hak_akses'])){
-    if($_SESSION['hak_akses']==1){
+  if(isset($hak_akses)){
+    if($hak_akses!=1){
+      array_push($_SESSION['pesan'],['eror','Anda Tidak Memiliki Akses Kesini']);
       header("location:/tb_pbd/view/");
     }
   }
 
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Create Satuan Kerja <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
 <li class="breadcrumb-item"><a href="/tb_pbd/view/management/satker/index.php">Satuan Kerja</a>

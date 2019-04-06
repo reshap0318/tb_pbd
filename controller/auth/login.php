@@ -6,45 +6,60 @@
   $aksi = 'login';
   $username = null;
   $password = null;
-  $status = 0;
-  $pesan = [];
+  $status = null;
   $link = '/tb_pbd/view/';
 
   if($aksi=='login'){
-    if(!isset($_POST['username'])){
-      $status = 'eror';
-      array_push($pesan,'Username Tidak Boleh Kosong');
-    }
-    else{
+    if(isset($_POST['username'])){
       $username = $_POST['username'];
     }
-
-    if(!isset($_POST['password'])){
-      $status = 'eror';
-      array_push($pesan,'Password Tidak Boleh Kosong');
-    }
     else{
+      $status = 'eror';
+      array_push($_SESSION['pesan'],[$status,'Username Tidak Boleh Kosong']);
+    }
+
+    if(isset($_POST['password'])){
       $password = md5($_POST['password']);
     }
+    else{
+      $status = 'eror';
+      array_push($_SESSION['pesan'],[$status,'Password Tidak Boleh Kosong']);
+    }
 
 
-    $sql = "select * from users where nrp='$username' AND password='$password'";
-    $eksekusi = pg_query($sql);
+    if($status!='eror'){
 
-    while ($data = pg_fetch_assoc($eksekusi)) {
-      $_SESSION['status'] = 1;
-      $_SESSION['nrp'] = $data['nrp'];
-      $_SESSION['nama'] = $data['nama'];
-      $_SESSION['satker_id'] = $data['satker_id'];
-      $_SESSION['hak_akses'] = $data['hak_akses'];
+      $sql = "select * from users where nrp='$username' AND password='$password'";
+      $eksekusi = pg_query($sql);
+
+      while ($data = pg_fetch_assoc($eksekusi)) {
+        $_SESSION['status'] = 1;
+        $status = 1;
+        $_SESSION['nrp'] = $data['nrp'];
+        $_SESSION['nama'] = $data['nama'];
+        $_SESSION['satker_id'] = $data['satker_id'];
+        $_SESSION['hak_akses'] = $data['hak_akses'];
+      }
+
       $status = 'berhasil';
-      $pesan = ['Berhasil Login'];
+      array_push($_SESSION['pesan'],[$status,'Berhasil Login']);
+
+      if($status==0){
+        $link = '/tb_pbd/view/auth/login.php';
+        $status = 'eror';
+        array_push($_SESSION['pesan'],[$status,'Username Atau Password Salah']);
+      }
+    }
+    else{
+      $link = '/tb_pbd/view/auth/login.php';
+      $status = 'eror';
+      array_push($_SESSION['pesan'],[$status,'Terjadi Eror']);
     }
   }
   else{
     $link = '/tb_pbd/view/auth/login.php';
-    $status = 'Eror';
-    array_push($pesan,'Terjadi Eror Saat Mengload Data');
+    $status = 'eror';
+    array_push($_SESSION['pesan'],[$status,'Link Tidak ditemukan']);
   }
 
   header('location:'.$link);
