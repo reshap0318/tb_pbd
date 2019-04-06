@@ -1,11 +1,13 @@
 <?php
 
   session_start();
-  if($_SESSION['status'] == 1){
-    if($_SESSION['hak_akses'] != 1){
-      header("location:javascript://history.go(-1)");
+  if($_SESSION['status']==1){
+    if($_SESSION['hak_akses']==3){
+      array_push($_SESSION['pesan'],['eror','Anda Tidak Memiliki Akses Kesini']);
+      header("location:/tb_pbd/view/");
     }
   }else{
+    array_push($_SESSION['pesan'],['eror','Anda Belum Login, Silakan Login Terlebih Dahulu']);
     header("location:/tb_pbd/view/auth/login.php");
   }
 
@@ -25,61 +27,39 @@
     array_push($pesan,'LINK SALAH Periksa LINK');
   }
 
-  if($aksi=='create' && $status != 'eror'){
-      $status = 'success';
-      array_push($pesan,'Berhasil Menambahkan Merek');
+  if(isset($_POST['id'])){
+    $id = $_POST['id'];
+  }else{
+    $status = 'eror';
+    array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
+  }
 
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
+  if($aksi=='create' || $aksi == 'update'){
       if(isset($_POST['nama'])){
         $nama = $_POST['nama'];
       }else{
         $status = 'eror';
         array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
       }
+  }
 
+  if($aksi=='create' && $status != 'eror'){
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Menambahkan Merek']);
       $sql = "insert into merek(id,nama) values ('$id','$nama')";
   }
 
 
   elseif($aksi=='update' && $status != 'eror'){
-
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
-      if(isset($_POST['nama'])){
-        $nama = $_POST['nama'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
-      }
-
-      $status = 'success';
-      array_push($pesan,'Berhasil Mengubah Merek');
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Mengubah Merek']);
       $sql = "update merek set nama='$nama' where id = '$id'";
   }
 
 
   elseif($aksi=='delete' && $status != 'eror'){
-      $status = 'success';
-      array_push($pesan,'Berhasil Menghapus Merek');
-
-      if(isset($_POST['id'])){
-        $id = $_POST['id'];
-      }else{
-        $status = 'eror';
-        array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
-      }
-
+      $status = 'berhasil';
+      array_push($_SESSION['pesan'],[$status,'Berhasil Menghapus Merek']);
       $sql = "delete from merek where id = '$id'";
   }
 

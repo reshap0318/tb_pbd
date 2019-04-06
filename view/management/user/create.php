@@ -3,6 +3,7 @@
 
   if(isset($hak_akses)){
     if($hak_akses==3){
+      array_push($_SESSION['pesan'],['eror','Anda Tidak Memiliki Akses Kesini']);
       header("location:/tb_pbd/view/");
     }
   }
