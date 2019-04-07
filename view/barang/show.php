@@ -31,20 +31,20 @@ Show Barang
                 <?php
                   if(isset($_GET['kategori'])){
                     $id = $_GET['kategori'];
-                    $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id";
+                    $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id order by barang.status asc";
                     if($_SESSION['hak_akses']==2){
-                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND satker_id=$satker_id";
+                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND satker_id=$satker_id order by barang.status asc";
                     }elseif($_SESSION['hak_akses']==3){
-                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from peminjam join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND satker_id=$satker_id AND nrp_peminjam='$nrp'";
+                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from peminjam join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND nrp_peminjam='$nrp' order by barang.status asc";
                     }
 
                   }elseif(isset($_GET['merek'])){
                     $id = $_GET['merek'];
-                    $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.merek_id=$id";
+                    $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.merek_id=$id order by barang.status asc";
                     if($_SESSION['hak_akses']==2){
-                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.merek_id=$id AND satker_id=$satker_id";
+                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.merek_id=$id AND satker_id=$satker_id order by barang.status asc";
                     }elseif($_SESSION['hak_akses']==3){
-                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from peminjam join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.merek_id=$id AND satker_id=$satker_id AND nrp_peminjam='$nrp'";
+                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from peminjam join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.merek_id=$id AND nrp_peminjam='$nrp' order by barang.status asc";
                     }
                   }
 
@@ -59,10 +59,12 @@ Show Barang
                       <td><?php echo $data['satker'];?></td>
                       <td><?php if($data['kondisi'] == 1 ){echo "Baik";}elseif($data['kondisi'] == 2){echo "Rusak";}elseif($data['kondisi'] == 3){echo "Rusak Parah";}elseif($data['kondisi'] == 4){echo "Dihapuskan";}?></td>
                       <td><?php if($data['status'] == 1 ){echo "Tersedia";}elseif($data['status'] == 0){echo "Dipinjam";}?></td>
-                      <td style="width:100px">
-                        <a href="/tb_pbd/view/barang/view.php?no_serial=<?php echo $data['no_serial']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Detail</a>
+                      <td style="width:100px" class="text-center">
+                        <a href="/tb_pbd/view/barang/detail.php?no_serial=<?php echo $data['no_serial']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Detail</a>
+                        <?php if($hak_akses!=3){ ?>
                         <a href="/tb_pbd/view/barang/edit.php?no_serial=<?php echo $data['no_serial']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
                         <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>
+                        <?php } ?>
                       </td>
                   </tr>
                 <?php } ?>

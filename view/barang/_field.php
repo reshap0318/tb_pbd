@@ -1,3 +1,27 @@
+<?php
+if($hak_akses==1){
+?>
+  <div class="form-group row">
+      <label class="col-sm-2 col-form-label">Satuan Kerja</label>
+      <div class="col-sm-10">
+          <select class="form-control" name="satker_id">
+            <?php
+              $sql = "select id, nama from satker";
+              $eksekusi = pg_query($sql);
+              while ($satker = pg_fetch_assoc($eksekusi)) {
+                if($satker['id']==$data['satker_id']){
+                  echo '<option value="'.$satker['id'].'" selected>'.$satker['nama'].'</option>';
+                }else{
+                  echo '<option value="'.$satker['id'].'">'.$satker['nama'].'</option>';
+                }
+              }
+            ?>
+          </select>
+          <span class="messages popover-valid"></span>
+      </div>
+  </div>
+<?php } ?>
+
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Tahun Perolehan</label>
     <div class="col-sm-10">

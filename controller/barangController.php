@@ -11,8 +11,6 @@
     header("location:/tb_pbd/view/auth/login.php");
   }
 
-  $satker_id = $_SESSION['satker_id'];
-
   include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/controller/koneksi.php';
   $no_serial = null;
   $tahun_perolehan = null;
@@ -34,6 +32,12 @@
   }else{
     $status = 'eror';
     array_push($_SESSION['pesan'],[$status,'LINK SALAH Periksa LINK']);
+  }
+
+  if(isset($_POST['satker_id'])){
+    $satker_id = $_POST['satker_id'];
+  }else{
+    $satker_id = $_SESSION['satker_id'];
   }
 
   if(isset($_POST['no_serial'])){
