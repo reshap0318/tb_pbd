@@ -36,11 +36,10 @@ Barang
                 <?php $no=0;
                   $sql = "select distinct barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from barang left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id";
                   if($_SESSION['hak_akses']==2){
-                      $satker_id = $_SESSION['satker_id'];
                       $sql = "select distinct barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from barang left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id where satker_id=$satker_id group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id";
                   }elseif($_SESSION['hak_akses']==3){
                       $nrp = $_SESSION['nrp'];
-                      $sql = "select distinct barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from peminjam left join barang on peminjam.no_serial = barang.no_serial left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id where satker_id=1 group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id where peminjam.nrp_peminjam = '$nrp' AND barang.status=0";
+                      $sql = "select distinct barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from peminjam left join barang on peminjam.no_serial = barang.no_serial left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id where satker_id=$satker_id AND peminjam.nrp_peminjam = '$nrp' AND barang.status=0 group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id";
                   }
                   $eksekusi = pg_query($sql);
                   while ($data = pg_fetch_assoc($eksekusi)) {
@@ -81,7 +80,12 @@ Barang
                   </thead>
                   <tbody>
                     <?php $no=0;
-                      $sql = "select barang_jenis.id, barang_jenis.nama, count(barang.no_serial) as total from barang_jenis join barang on barang_jenis.id = barang.jenis_id group by barang_jenis.id";
+                      $sql = "select barang_jenis.id, barang_jenis.nama, count(barang.no_serial) as total from barang_jenis left join barang on barang_jenis.id = barang.jenis_id group by barang_jenis.id";
+                      if($hak_akses==2){
+                          $sql = "select barang_jenis.id, barang_jenis.nama, count(barang.no_serial) as total from barang_jenis left join barang on barang_jenis.id = barang.jenis_id where barang.satker_id=$satker_id group by barang_jenis.id";
+                      }elseif($hak_akses==3){
+                          $sql = "select barang_jenis.id, barang_jenis.nama, count(barang.no_serial) as total from barang_jenis left join barang on barang_jenis.id = barang.jenis_id join peminjam on barang.no_serial = peminjam.no_serial where peminjam.nrp_peminjam='$nrp' group by barang_jenis.id";
+                      }
                       $eksekusi = pg_query($sql);
                       while ($data = pg_fetch_assoc($eksekusi)) {
                     ?>
@@ -91,8 +95,12 @@ Barang
                           <td class="text-center"><?php echo $data['total'];?></td>
                           <td class="text-center" style="width:100px">
                             <a href="/tb_pbd/view/barang/show.php?kategori=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">show</a>
+                            <?php if($hak_akses!=3){ ?>
                             <a href="/tb_pbd/view/management/jenis_barang/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
+                            <?php } ?>
+                            <?php if($hak_akses!=3){ ?>
                             <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapusjenis(<?php echo $data['id']; ?>)">Delete</a>
+                            <?php } ?>
                           </td>
                       </tr>
                     <?php } ?>
@@ -118,6 +126,11 @@ Barang
                   <tbody>
                     <?php $no=0;
                       $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek join barang on merek.id = barang.merek_id group by merek.id";
+                      if($hak_akses==2){
+                        $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek join barang on merek.id = barang.merek_id where barang.satker_id=$satker_id group by merek.id";
+                      }elseif($hak_akses==3){
+                        $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek join barang on merek.id = barang.merek_id join peminjam on barang.no_serial = peminjam.no_serial where peminjam.nrp_peminjam = '$nrp' group by merek.id";
+                      }
                       $eksekusi = pg_query($sql);
                       while ($data = pg_fetch_assoc($eksekusi)) {
                     ?>
@@ -127,8 +140,12 @@ Barang
                           <td class="text-center"><?php echo $data['total'];?></td>
                           <td class="text-center" style="width:100px">
                             <a href="/tb_pbd/view/barang/show.php?merek=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">show</a>
+                            <?php if($hak_akses!=3){ ?>
                             <a href="/tb_pbd/view/management/merek/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
+                            <?php } ?>
+                            <?php if($hak_akses!=3){ ?>
                             <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapusmerek(<?php echo $data['id']; ?>)">Delete</a>
+                            <?php } ?>
                           </td>
                       </tr>
                     <?php } ?>
@@ -157,6 +174,7 @@ Barang
         "info":     false,
         dom: 'Bfrtip',
         buttons: [
+        <?php if($hak_akses!=3){ ?>
         {
             text: 'Tambah Barang',
             className: 'btn-success',
@@ -181,6 +199,7 @@ Barang
               window.location.assign("/tb_pbd/view/management/jenis_barang/create.php");
             }
         },
+        <?php } ?>
         {
             extend: 'copy',
             className: 'btn-inverse',

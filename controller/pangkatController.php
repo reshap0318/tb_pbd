@@ -24,7 +24,7 @@
     $aksi = $_GET['aksi'];
   }else{
     $status = 'eror';
-    array_push($pesan,'LINK SALAH Periksa LINK');
+    array_push($_SESSION['pesan'],[$status,'LINK SALAH Periksa LINK']);
   }
 
   if(isset($_POST['id'])){

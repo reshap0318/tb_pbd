@@ -31,10 +31,9 @@
   //validasi dan inisiasi
   if(isset($_GET['aksi'])){
     $aksi = $_GET['aksi'];
-  }
-  else{
+  }else{
     $status = 'eror';
-    array_push($pesan,'LINK SALAH Periksa LINK');
+    array_push($_SESSION['pesan'],[$status,'LINK SALAH Periksa LINK']);
   }
 
   if(isset($_POST['nrp'])){

@@ -24,36 +24,36 @@
     $aksi = $_GET['aksi'];
   }else{
     $status = 'eror';
-    array_push($pesan,'LINK SALAH Periksa LINK');
+    array_push($_SESSION['pesan'],[$status,'LINK SALAH Periksa LINK']);
   }
 
   if(isset($_POST['id'])){
     $id = $_POST['id'];
   }else{
     $status = 'eror';
-    array_push($pesan,'Pastikan Kode Terisi Dengan Benar');
+    array_push($_SESSION['pesan'],[$status,'Pastikan Kode Terisi Dengan Benar']);
   }
 
-  if($aksi=='create' || $aksi == 'update'){
+  if($aksi=='create' || $aksi=='update'){
       if(isset($_POST['nama'])){
         $nama = $_POST['nama'];
       }else{
         $status = 'eror';
-        array_push($pesan,'Pastikan Nama Terisi Dengan Benar');
+        array_push($_SESSION['pesan'],[$status,'Pastikan Nama Terisi Dengan Benar']);
       }
   }
 
   if($aksi=='create' && $status != 'eror'){
       $status = 'berhasil';
       array_push($_SESSION['pesan'],[$status,'Berhasil Menambahkan Jenis Barang']);
-      $sql = "insert into barang_jenis(id,nama) values ('$id','$nama')";
+      $sql = "insert into barang_jenis(id,nama) values ($id,'$nama')";
   }
 
 
   elseif($aksi=='update' && $status != 'eror'){
       $status = 'berhasil';
       array_push($_SESSION['pesan'],[$status,'Berhasil Mengubah Jenis Barang']);
-      $sql = "update barang_jenis set nama='$nama' where id = '$id'";
+      $sql = "update barang_jenis set nama='$nama' where id = $id";
   }
 
 

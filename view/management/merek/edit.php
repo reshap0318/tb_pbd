@@ -1,3 +1,6 @@
+
+<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
+
 <?php
 
   if(isset($hak_akses)){
@@ -8,7 +11,7 @@
   }
 
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
+
 <?php startblock('title') ?> Edit Merek <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
 <li class="breadcrumb-item"><a href="/tb_pbd/view/barang">Merek</a>
