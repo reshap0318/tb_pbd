@@ -4,7 +4,7 @@ if($hak_akses==1){
   <div class="form-group row">
       <label class="col-sm-2 col-form-label">Satuan Kerja</label>
       <div class="col-sm-10">
-          <select class="form-control" name="satker_id">
+          <select class="form-control" name="satker_id" required>
             <?php
               $sql = "select id, nama from satker";
               $eksekusi = pg_query($sql);
@@ -32,7 +32,7 @@ if($hak_akses==1){
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Jenis</label>
     <div class="col-sm-10">
-        <select class="form-control " name="jenis_id">
+        <select class="form-control " name="jenis_id" required>
           <?php
             $sql = "select id, nama from barang_jenis";
             $eksekusi = pg_query($sql);
@@ -51,7 +51,7 @@ if($hak_akses==1){
 <div class="form-group row">
     <label class="col-sm-2 col-form-label">Merek</label>
     <div class="col-sm-10">
-        <select class="form-control " name="merek_id">
+        <select class="form-control " name="merek_id" required>
           <?php
             $sql = "select id, nama from merek";
             $eksekusi = pg_query($sql);

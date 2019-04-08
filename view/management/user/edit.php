@@ -35,7 +35,7 @@ Edit Users
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">NIP / NRP</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" value="<?php if(isset($data['nrp'])){echo $data['nrp'];} ?>"  id="nrp" name="nrp" placeholder="ex : 1611522012" readonly>
+                    <input type="text" class="form-control" value="<?php if(isset($data['nrp'])){echo $data['nrp'];} ?>"  id="nrp" name="nrp" placeholder="ex : 1611522012" readonly required>
                     <span class="messages popover-valid"></span>
                 </div>
             </div>
