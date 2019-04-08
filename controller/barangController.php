@@ -73,8 +73,7 @@
       if(isset($_POST['type'])){
         $type = $_POST['type'];
       }else{
-        $status = 'eror';
-        array_push($_SESSION['pesan'],[$status,'Pastikan Tipe Terisi Dengan Benar']);
+        $type = '';
       }
 
       if(isset($_POST['kondisi'])){

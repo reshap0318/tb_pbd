@@ -28,6 +28,7 @@ Detail Barang
             }
             $eksekusi = pg_query($sql);
             while ($data = pg_fetch_assoc($eksekusi)) {
+            $no_serial = $data['no_serial'];
         ?>
           <table class="table nowrap">
             <tr>
@@ -98,7 +99,7 @@ Detail Barang
                       }elseif($kondisi==4){
                         return 'Dihapuskan';
                       }else{
-                        return 'Belum Dikembalikan';
+                        return '<label class="label label-lg label-danger">Belum Dikembalikan</label>';
                       }
                   }
 

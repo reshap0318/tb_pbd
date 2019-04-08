@@ -83,7 +83,7 @@ Barang
                       if($hak_akses==2){
                           $sql = "select barang_jenis.id, barang_jenis.nama, count(barang.no_serial) as total from barang_jenis left join barang on barang_jenis.id = barang.jenis_id where barang.satker_id=$satker_id group by barang_jenis.id";
                       }elseif($hak_akses==3){
-                          $sql = "select barang_jenis.id, barang_jenis.nama, count(barang.no_serial) as total from barang_jenis left join barang on barang_jenis.id = barang.jenis_id join peminjam on barang.no_serial = peminjam.no_serial where peminjam.nrp_peminjam='$nrp' group by barang_jenis.id";
+                          $sql = "select barang_jenis.id, barang_jenis.nama, count(barang.no_serial) as total from barang_jenis left join barang on barang_jenis.id = barang.jenis_id join peminjam on barang.no_serial = peminjam.no_serial where peminjam.nrp_peminjam='$nrp' AND barang.status=0 group by barang_jenis.id";
                       }
                       $eksekusi = pg_query($sql);
                       while ($data = pg_fetch_assoc($eksekusi)) {
@@ -124,11 +124,11 @@ Barang
                   </thead>
                   <tbody>
                     <?php $no=0;
-                      $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek join barang on merek.id = barang.merek_id group by merek.id";
+                      $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek left join barang on merek.id = barang.merek_id group by merek.id";
                       if($hak_akses==2){
-                        $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek join barang on merek.id = barang.merek_id where barang.satker_id=$satker_id group by merek.id";
+                        $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek left join barang on merek.id = barang.merek_id where barang.satker_id=$satker_id group by merek.id";
                       }elseif($hak_akses==3){
-                        $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek join barang on merek.id = barang.merek_id join peminjam on barang.no_serial = peminjam.no_serial where peminjam.nrp_peminjam = '$nrp' group by merek.id";
+                        $sql = "select merek.id, merek.nama, count(barang.no_serial) as total from merek left join barang on merek.id = barang.merek_id join peminjam on barang.no_serial = peminjam.no_serial where peminjam.nrp_peminjam = '$nrp' AND barang.status=0 group by merek.id";
                       }
                       $eksekusi = pg_query($sql);
                       while ($data = pg_fetch_assoc($eksekusi)) {

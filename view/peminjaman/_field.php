@@ -4,6 +4,9 @@
         <select class="js-example-basic-single" name="nrp_peminjam">
           <?php
             $sql = "select nrp, nama from users";
+            if($hak_akses==2){
+              $sql = "select nrp, nama from users where satker_id = $satker_id";
+            }
             $eksekusi = pg_query($sql);
             while ($jenis = pg_fetch_assoc($eksekusi)) {
               if($jenis['nrp']==$data['nrp_peminjam']){

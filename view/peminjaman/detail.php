@@ -36,11 +36,11 @@ Detail Peminjaman
               header("location:/tb_pbd/view/peminjaman");
             }
 
-            $sql = "select peminjam.id, peminjam.tanggal, peminjam.kondisi, pinjam.nama as peminjaman, users.nama as pemberi, peminjam.keterangan, peminjam.no_serial, barang.type, barang_jenis.nama as jenis, merek.nama as merek FROM public.peminjam join users as pinjam on peminjam.nrp_peminjam = pinjam.nrp join users on peminjam.nrp_pemberi = users.nrp join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where peminjam.id = $id";
+            $sql = "select peminjam.id, barang.status, peminjam.tanggal, peminjam.kondisi, pinjam.nama as peminjaman, users.nama as pemberi, peminjam.keterangan, peminjam.no_serial, barang.type, barang_jenis.nama as jenis, merek.nama as merek FROM public.peminjam join users as pinjam on peminjam.nrp_peminjam = pinjam.nrp join users on peminjam.nrp_pemberi = users.nrp join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where peminjam.id = $id";
             if($hak_akses==2){
-              $sql = "select peminjam.id, peminjam.tanggal, peminjam.kondisi, pinjam.nama as peminjaman, users.nama as pemberi, peminjam.keterangan, peminjam.no_serial, barang.type, barang_jenis.nama as jenis, merek.nama as merek FROM public.peminjam join users as pinjam on peminjam.nrp_peminjam = pinjam.nrp join users on peminjam.nrp_pemberi = users.nrp join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where peminjam.id = $id AND barang.satker_id=$satker_id";
+              $sql = "select peminjam.id, barang.status, peminjam.tanggal, peminjam.kondisi, pinjam.nama as peminjaman, users.nama as pemberi, peminjam.keterangan, peminjam.no_serial, barang.type, barang_jenis.nama as jenis, merek.nama as merek FROM public.peminjam join users as pinjam on peminjam.nrp_peminjam = pinjam.nrp join users on peminjam.nrp_pemberi = users.nrp join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where peminjam.id = $id AND barang.satker_id=$satker_id";
             }elseif($hak_akses==3){
-              $sql = "select peminjam.id, peminjam.tanggal, peminjam.kondisi, pinjam.nama as peminjaman, users.nama as pemberi, peminjam.keterangan, peminjam.no_serial, barang.type, barang_jenis.nama as jenis, merek.nama as merek FROM public.peminjam join users as pinjam on peminjam.nrp_peminjam = pinjam.nrp join users on peminjam.nrp_pemberi = users.nrp join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where peminjam.id = $id AND peminjam.nrp_peminjam = '$nrp'";
+              $sql = "select peminjam.id, barang.status, peminjam.tanggal, peminjam.kondisi, pinjam.nama as peminjaman, users.nama as pemberi, peminjam.keterangan, peminjam.no_serial, barang.type, barang_jenis.nama as jenis, merek.nama as merek FROM public.peminjam join users as pinjam on peminjam.nrp_peminjam = pinjam.nrp join users on peminjam.nrp_pemberi = users.nrp join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where peminjam.id = $id AND peminjam.nrp_peminjam = '$nrp'";
             }
             $eksekusi = pg_query($sql);
             while ($data = pg_fetch_assoc($eksekusi)) {
@@ -68,7 +68,7 @@ Detail Peminjaman
               <td>: <?php echo $data['merek']; ?></td>
             </tr>
             <tr>
-              <td style="width:200px">Peminjam</td>
+              <td style="width:200px">Pemberi</td>
               <td>: <?php echo $data['pemberi']; ?></td>
               <td style="width:200px"></td>
               <td style="width:200px">Tipe</td>
@@ -79,6 +79,9 @@ Detail Peminjaman
             </tr>
             <tr>
               <td class="text-center" colspan="5"><?php echo $data['keterangan']; ?></td>
+            </tr>
+            <tr>
+              <td class="text-center" colspan="5"> <?php if($data['status']==0){echo '<label class="label label-lg label-danger">Belum Dikembalikan</label>';}elseif($data['status']==1){echo '<label class="label label-lg label-info">Dikembalikan</label>';} ?> </td>
             </tr>
           </table>
         <?php } ?>

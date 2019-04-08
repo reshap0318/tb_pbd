@@ -41,6 +41,17 @@
       $status = 'eror';
       array_push($_SESSION['pesan'],[$status,'Pastikan ID Terisi Dengan Benar']);
     }
+
+    $sql = "select * from pengembalian where peminjaman_id = $id";
+    $eksekusi = pg_query($sql);
+    $no = 0;
+    while($data = pg_fetch_assoc($eksekusi)){
+      $no += 1;
+    }
+    if($no>0){
+      $status = 'eror';
+      array_push($_SESSION['pesan'],['warning','Data Peminjaman yang sudah dikembalikan tidak boleh di hapus atau di Ubah']);
+    }
   }
 
   if($aksi=='create'||$aksi=='update'){
@@ -81,19 +92,41 @@
 
 
   if($aksi=='create' && $status != 'eror'){
-      $status = 'berhasil';
-      array_push($_SESSION['pesan'],[$status,'Berhasil Menambahkan Peminjaman Barang']);
+      $sql_satker_id_peminjam = "select satker_id from users where nrp = '$nrp_peminjam'";
+      $satker_peminjam = null;
+      $satker_id = null;
+      $eksekusi_satker_user = pg_query($sql_satker_id_peminjam);
+      while ($data = pg_fetch_assoc($eksekusi_satker_user)) {
+          $satker_peminjam = $data['satker_id'];
+      }
+
       for ($i=0; $i < count($no_serial) ; $i++) {
-        $sqlkon = "select kondisi from barang where no_serial = '$no_serial[$i]'";
-        $eksekusi = pg_query($sqlkon);
-        while ($data = pg_fetch_assoc($eksekusi)) {
-            $kondisi = $data['kondisi'];
+
+        $sql_satker_barang = "select satker_id from barang where no_serial = '$no_serial[$i]'";
+        $eksekusi_satker_barang = pg_query($sql_satker_barang);
+        while ($data = pg_fetch_assoc($eksekusi_satker_barang)) {
+            $satker_id = $data['satker_id'];
         }
+        // die(var_dump([$satker_id,$satker_peminjam]));
 
-        $sqlupbar = "update barang set status=0 where no_serial='$no_serial[$i]'";
-        $eksekusi = pg_query($sqlupbar);
+        if($satker_id != $satker_peminjam){
+          $status = 'eror';
+          array_push($_SESSION['pesan'],['warning','Tidak Bisa Meminjamkan Barang di Beda Satuan Kerja']);
+        }
+        if($status!='eror'){
+          $status = 'berhasil';
+          array_push($_SESSION['pesan'],[$status,'Berhasil Menambahkan Peminjaman Barang Dengan Kode '.$no_serial[$i]]);
+          $sqlkon = "select kondisi from barang where no_serial = '$no_serial[$i]'";
+          $eksekusi = pg_query($sqlkon);
+          while ($data = pg_fetch_assoc($eksekusi)) {
+              $kondisi = $data['kondisi'];
+          }
 
-        $sql = "insert INTO public.peminjam(tanggal, kondisi, nrp_peminjam, nrp_pemberi, keterangan, no_serial) VALUES ('$tanggal', $kondisi, '$nrp_peminjam', '$nrp_pemberi', '$keterangan', '$no_serial[$i]')";
+          $sqlupbar = "update barang set status=0 where no_serial='$no_serial[$i]'";
+          $eksekusi = pg_query($sqlupbar);
+          $sql = "insert INTO public.peminjam(tanggal, kondisi, nrp_peminjam, nrp_pemberi, keterangan, no_serial) VALUES ('$tanggal', $kondisi, '$nrp_peminjam', '$nrp_pemberi', '$keterangan', '$no_serial[$i]')";
+          $eksekusi = pg_query($sql);
+        }
       }
   }
 
@@ -132,10 +165,10 @@
         $sqlupbar = "update barang set status=1 where no_serial='$no_serial'";
         $eksekusi = pg_query($sqlupbar);
       }
-      $sql = "delete from peminjam where id = '$id'";
+      $sql = "delete from peminjam where id = $id";
   }
 
-  if($status != 'eror'){
+  if($status != 'eror' && $aksi!='create'){
     $eksekusi = pg_query($sql);
   }
 

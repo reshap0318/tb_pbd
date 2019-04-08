@@ -39,7 +39,7 @@ Edit Jenis Barang
             </div>
             <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/management/jenis_barang/_field.php'; ?>
 
-            <<?php } ?>
+            <?php } ?>
             <div class="row">
                 <label class="col-sm-2"></label>
                 <div class="col-sm-10">

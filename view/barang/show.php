@@ -63,14 +63,14 @@ Show Barang
                         <a href="/tb_pbd/view/barang/detail.php?no_serial=<?php echo $data['no_serial']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Detail</a>
                         <?php if($hak_akses!=3){ ?>
                         <a href="/tb_pbd/view/barang/edit.php?no_serial=<?php echo $data['no_serial']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
-                        <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>
+                        <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapusbarang('<?php echo $data['no_serial']; ?>')">Delete</a>
                         <?php } ?>
                       </td>
                   </tr>
                 <?php } ?>
               </tbody>
           </table>
-<form class="" id="formdelete" style="display:none" action="/tb_pbd/controller/jenis_barangController.php?aksi=delete" method="post">
+<form class="" id="formdelete" style="display:none" action="/tb_pbd/controller/barangController.php?aksi=delete" method="post">
   <input type="text" name="no_serial" value="" id="delete_id">
 </form>
       </div>
@@ -122,7 +122,7 @@ Show Barang
   </script>
 
   <script type="text/javascript">
-    function hapus(id) {
+    function hapusbarang(id) {
       if(confirm('yakin ingin menghapus data ini?') == true){
         document.getElementById('delete_id').value = id;
         document.getElementById('formdelete').submit();

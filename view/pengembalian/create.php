@@ -1,14 +1,15 @@
+<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
+
 <?php
 
-  session_start();
-  if(isset($_SESSION['hak_akses'])){
-    if($_SESSION['hak_akses']==1 || $_SESSION['hak_akses']==2){
+  if(isset($hak_akses)){
+    if($hak_akses==3){
+      array_push($_SESSION['pesan'],['eror','Anda Tidak Memiliki Akses Kesini']);
       header("location:/tb_pbd/view/");
     }
   }
 
 ?>
-<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 <?php startblock('title') ?> Create Pengembalian <?php endblock() ?>
 <?php startblock('breadcrumb-link') ?>
 <li class="breadcrumb-item"><a href="/tb_pbd/view/pengembalian/index.php">Pengembalian</a>
