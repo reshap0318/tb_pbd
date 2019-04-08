@@ -31,15 +31,17 @@ Show Barang
                 <?php
                   if(isset($_GET['kategori'])){
                     $id = $_GET['kategori'];
-                    $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id order by barang.status asc";
-                    if(isset($_GET['satker_id'])){
-                        $satker_id = $_GET['satker_id'];
-                        $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND satker_id=$satker_id order by barang.status asc";
-                    }
-                    if($_SESSION['hak_akses']==2){
+
+                    if($hak_akses==2){
                       $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND satker_id=$satker_id order by barang.status asc";
-                    }elseif($_SESSION['hak_akses']==3){
+                    }elseif($hak_akses==3){
                       $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from peminjam join barang on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND nrp_peminjam='$nrp' order by barang.status asc";
+                    }elseif($hak_akses==1){
+                      $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id order by barang.status asc";
+                      if(isset($_GET['satker_id'])){
+                          $satker_id = $_GET['satker_id'];
+                          $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.jenis_id=$id AND satker_id=$satker_id order by barang.status asc";
+                      }
                     }
 
                   }elseif(isset($_GET['merek'])){

@@ -23,7 +23,7 @@ Laporan Peminjaman
                       <th>Jenis</th>
                       <th>Merek</th>
                       <th>Tanggal</th>
-                      <th>Peminjam</th>
+                      <th>Keterangan</th>
                   </tr>
               </thead>
               <tbody>

@@ -136,7 +136,7 @@
     array_push($_SESSION['pesan'],[$pesan,'Berhasil Menambahkan peminjam']);
     $password = md5($nrp);
     $sql = "INSERT INTO public.users(nrp, nama, satker_id, pangkat_id, jabatan_id, password, hak_akses) VALUES ('$nrp', '$nama', $satker_id, $pangkat_id, $jabatan_id, '$password', 3)";
-    $link = 'tb_pbd/view/peminjaman/create.php';
+    $link = '/tb_pbd/view/peminjaman/create.php';
   }
 
   if($status != 'eror'){
