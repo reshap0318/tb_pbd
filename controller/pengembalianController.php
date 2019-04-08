@@ -31,15 +31,15 @@
     $aksi = $_GET['aksi'];
   }else{
     $status = 'eror';
-    array_push($_SESSION['pesan'],[$status,'LINK SALAH Periksa LINK']);
+    array_push($_SESSION['pesan'],[$status,'Pastikan Link Benar']);
   }
 
-  if($aksi=='delete'){
+  if($aksi=='delete' || $aksi=='update'){
     if(isset($_POST['id'])){
       $id = $_POST['id'];
     }else{
       $status = 'eror';
-      array_push($_SESSION['pesan'],[$status,'ID Tidak Ditemukan']);
+      array_push($_SESSION['pesan'],[$status,'ID Tidak ditemukan']);
     }
   }
 
@@ -69,8 +69,7 @@
       if(isset($_POST['keterangan'])){
         $keterangan = $_POST['keterangan'];
       }else{
-        $status = 'eror';
-        array_push($_SESSION['pesan'],[$status,'Pastikan Keterangan Terisi Dengan Benar']);
+        $keterangan = '';
       }
   }
 
@@ -92,16 +91,55 @@
 
 
   elseif($aksi=='update' && $status != 'eror'){
-      $status = 'berhasil';
-      array_push($pesan,'Berhasil Mengubah Barang');
-      $sql = "update public.barang SET tahun_perolehan='$tahun_perolehan', jenis_id=$jenis_id, merek_id=$merek_id, type='$type', kondisi=$kondisi, keterangan='$keterangan' WHERE no_serial='$no_serial';";
+        $status = 'berhasil';
+        array_push($_SESSION['pesan'],[$status,'Berhasil Merubah Barang']);
+
+        $kondisi_sekarang = null;
+        $no_serial_sekarang = null;
+        $sql_data_peminjaman = "select kondisi, no_serial from peminjam where id=$peminjaman_id";
+        $eksekusi_data_peminjam = pg_query($sql_data_peminjaman);
+        while ($data = pg_fetch_assoc($eksekusi_data_peminjam)) {
+            $no_serial_sekarang = $data['no_serial'];
+        }
+        $sqlupbar2 = "update barang set status=1, kondisi=$kondisi where no_serial='$no_serial_sekarang'";
+        $eksekusi2 = pg_query($sqlupbar2);
+
+        if(isset($_POST['peminjaman_id_sebelum'])){
+          $peminjaman_id_sebelum = $_POST['peminjaman_id_sebelum'];
+          if($peminjaman_id!=$peminjaman_id_sebelum){
+
+            $kondisi_sebelum = null;
+            $no_serial_sebelum = null;
+            $sql_data_peminjaman = "select kondisi, no_serial from peminjam where id=$peminjaman_id_sebelum";
+            $eksekusi_data_peminjam = pg_query($sql_data_peminjaman);
+            while ($data = pg_fetch_assoc($eksekusi_data_peminjam)) {
+                $kondisi_sebelum = $data['kondisi'];
+                $no_serial_sebelum = $data['no_serial'];
+            }
+
+            $sqlupbar1 = "update barang set status=0, kondisi=$kondisi_sebelum where no_serial='$no_serial_sebelum'";
+            $eksekusi1 = pg_query($sqlupbar1);
+          }
+        }
+        $sql = "update public.pengembalian SET tanggal='$tanggal', nrp_penerima='$nrp_penerima', kondisi=$kondisi, keterangan='$keterangan', peminjaman_id=$peminjaman_id WHERE id=$id";
+        // die($sql);
   }
 
 
   elseif($aksi=='delete' && $status != 'eror'){
       $status = 'berhasil';
-      array_push($pesan,'Berhasil Menghapus Barang');
-
+      array_push($_SESSION['pesan'],[$status,'Berhasil Menghapus Pengembalian']);
+      $data_peminjam = "select peminjam.kondisi, peminjam.no_serial from pengembalian join peminjam on pengembalian.peminjaman_id = peminjam.id where pengembalian.id=$id";
+      $eksekusi_data_peminjam = pg_query($data_peminjam);
+      $kondisi = null;
+      $no_serial =null;
+      while ($data = pg_fetch_assoc($eksekusi_data_peminjam)) {
+          $kondisi = $data['kondisi'];
+          $no_serial = $data['no_serial'];
+      }
+      // die(var_dump([$kondisi,$no_serial]));
+      $sql_rubah_barang = "update barang set kondisi = $kondisi, status = 0 where no_serial = '$no_serial'";
+      $eksekusi_sql_rubah_barang = pg_query($sql_rubah_barang);
       $sql = "delete from pengembalian where id = '$id'";
   }
 

@@ -1,13 +1,13 @@
 <?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/blank.php'; ?>
 
-<?php startblock('title') ?> Peminjaman <?php endblock() ?>
+<?php startblock('title') ?> Laporan Peminjaman <?php endblock() ?>
 
 <?php startblock('breadcrumb-link') ?>
-<li class="breadcrumb-item"><a href="#!">Peminjaman</a>
+<li class="breadcrumb-item"><a href="#!">Laporan Peminjaman</a>
 <?php endblock() ?>
 
 <?php startblock('breadcrumb-title') ?>
-Peminjaman
+Laporan Peminjaman
 <?php endblock() ?>
 
 <?php startblock('content') ?>
@@ -23,16 +23,37 @@ Peminjaman
                       <th>Jenis</th>
                       <th>Merek</th>
                       <th>Tanggal</th>
-                      <th style="width:100px">Action</th>
+                      <th>Peminjam</th>
                   </tr>
               </thead>
               <tbody>
                 <?php $no=0;
-                  $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from peminjam join barang on peminjam.no_serial = barang.no_serial join users on peminjam.nrp_peminjam = users.nrp join merek on barang.merek_id = merek.id join barang_jenis on barang.jenis_id = barang_jenis.id";
+                  function cek($id)
+                  {
+                      $sql = "select * from pengembalian where peminjaman_id = $id";
+                      $eksekusi = pg_query($sql);
+                      $total = 0;
+                      while ($datas = pg_fetch_assoc($eksekusi)) {
+                          $total += 1;
+                      }
+
+                      if($total>0){
+                        return '<label class="label label-lg label-info">Dikembalikan</label>';
+                      }else{
+                        return '<label class="label label-lg label-danger">Belum Dikembalikan</label>';
+                      }
+                  }
+
                   if($hak_akses == 2){
                     $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from peminjam join barang on peminjam.no_serial = barang.no_serial join users on peminjam.nrp_peminjam = users.nrp join merek on barang.merek_id = merek.id join barang_jenis on barang.jenis_id = barang_jenis.id where barang.satker_id=$satker_id";
                   }elseif($hak_akses == 3){
                     $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from peminjam join barang on peminjam.no_serial = barang.no_serial join users on peminjam.nrp_peminjam = users.nrp join merek on barang.merek_id = merek.id join barang_jenis on barang.jenis_id = barang_jenis.id where peminjam.nrp_peminjam = '$nrp'";
+                  }elseif($hak_akses== 1){
+                    $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from peminjam join barang on peminjam.no_serial = barang.no_serial join users on peminjam.nrp_peminjam = users.nrp join merek on barang.merek_id = merek.id join barang_jenis on barang.jenis_id = barang_jenis.id";
+                    if(isset($_GET['satker_id'])){
+                      $satker_id = $_GET['satker_id'];
+                      $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from peminjam join barang on peminjam.no_serial = barang.no_serial join users on peminjam.nrp_peminjam = users.nrp join merek on barang.merek_id = merek.id join barang_jenis on barang.jenis_id = barang_jenis.id where barang.satker_id=$satker_id";
+                    }
                   }
                   $eksekusi = pg_query($sql);
                   while ($data = pg_fetch_assoc($eksekusi)) {
@@ -44,20 +65,11 @@ Peminjaman
                       <td><?php echo $data['jenis'];?></td>
                       <td><?php echo $data['merek'];?></td>
                       <td><?php echo $data['tanggal'];?></td>
-                      <td style="width:100px" class="text-center">
-                        <a href="/tb_pbd/view/peminjaman/detail.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Detail</a>
-                        <?php if($hak_akses!=3){ ?>
-                        <a href="/tb_pbd/view/peminjaman/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
-                        <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>
-                        <?php } ?>
-                      </td>
+                      <td class="text-center"><?php echo cek($data['id']);?></td>
                   </tr>
                 <?php } ?>
               </tbody>
           </table>
-<form class="" id="formdelete" style="display:none" action="/tb_pbd/controller/peminjamanController.php?aksi=delete" method="post">
-  <input type="text" name="id" value="" id="delete_id">
-</form>
       </div>
   </div>
 </div>
@@ -72,53 +84,34 @@ Peminjaman
         "info":     false,
         dom: 'Bfrtip',
         buttons: [
-      <?php if($hak_akses!=3){ ?>
-        {
-            text: 'Tambah Peminjaman',
-            className: 'btn-success',
-            action: function(e, dt, node, config)
-            {
-              window.location.assign("/tb_pbd/view/peminjaman/create.php");
-            }
-        },
-      <?php } ?>
         {
             extend: 'copy',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'print',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'excel',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'pdf',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         }]
       });
-  </script>
-
-  <script type="text/javascript">
-    function hapus(id) {
-      if(confirm('yakin ingin menghapus data ini?') == true){
-        document.getElementById('delete_id').value = id;
-        document.getElementById('formdelete').submit();
-      }
-    }
   </script>
 <?php endblock() ?>

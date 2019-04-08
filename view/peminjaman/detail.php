@@ -30,6 +30,22 @@ Detail Peminjaman
                 }
             }
 
+            function cek($id)
+            {
+                $sql = "select * from pengembalian where peminjaman_id = $id";
+                $eksekusi = pg_query($sql);
+                $total = 0;
+                while ($datas = pg_fetch_assoc($eksekusi)) {
+                    $total += 1;
+                }
+
+                if($total>0){
+                  return '<label class="label label-lg label-info">Dikembalikan</label>';
+                }else{
+                  return '<label class="label label-lg label-danger">Belum Dikembalikan</label>';
+                }
+            }
+
             if($_GET['id']){
               $id = $_GET['id'];
             }else{
@@ -81,7 +97,7 @@ Detail Peminjaman
               <td class="text-center" colspan="5"><?php echo $data['keterangan']; ?></td>
             </tr>
             <tr>
-              <td class="text-center" colspan="5"> <?php if($data['status']==0){echo '<label class="label label-lg label-danger">Belum Dikembalikan</label>';}elseif($data['status']==1){echo '<label class="label label-lg label-info">Dikembalikan</label>';} ?> </td>
+              <td class="text-center" colspan="5"> <?php echo cek($data['id']); ?> </td>
             </tr>
           </table>
         <?php } ?>

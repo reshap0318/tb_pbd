@@ -226,6 +226,12 @@
                                   <span class="pcoded-mtext">Pengembalian</span>
                               </a>
                           </li>
+                          <li class="">
+                              <a href="http://localhost/tb_pbd/view/laporan">
+                                  <span class="pcoded-micon"><i class="icofont icofont-files"></i></span>
+                                  <span class="pcoded-mtext">Laporan</span>
+                              </a>
+                          </li>
                         </ul>
                     </div>
                 </nav>

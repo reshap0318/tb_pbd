@@ -98,28 +98,28 @@ Users Management
             extend: 'copy',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'print',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'excel',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'pdf',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1, 2, 3, 4]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         }]
       });

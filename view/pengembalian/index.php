@@ -47,8 +47,11 @@ Pengembalian
                       <td><?php if($data['kondisi'] == 1 ){echo "Baik";}elseif($data['kondisi'] == 2){echo "Rusak";}elseif($data['kondisi'] == 3){echo "Rusak Parah";}elseif($data['kondisi'] == 4){echo "Dihapuskan";}?></td>
                       <td><?php echo $data['tglpinjam'];?></td>
                       <td style="width:100px">
+                        <a href="/tb_pbd/view/pengembalian/detail.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Detail</a>
+                        <?php if($hak_akses!=3){ ?>
                         <a href="/tb_pbd/view/pengembalian/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
                         <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>
+                        <?php } ?>
                       </td>
                   </tr>
                 <?php } ?>
@@ -71,6 +74,7 @@ Pengembalian
         "info":     false,
         dom: 'Bfrtip',
         buttons: [
+        <?php if($hak_akses!=3){ ?>
         {
             text: 'Tambah Pengembalian',
             className: 'btn-success',
@@ -79,32 +83,33 @@ Pengembalian
               window.location.assign("/tb_pbd/view/pengembalian/create.php");
             }
         },
+        <?php } ?>
         {
             extend: 'copy',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'print',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'excel',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         },
         {
             extend: 'pdf',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6]
             }
         }]
       });

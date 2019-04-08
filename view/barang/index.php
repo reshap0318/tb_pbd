@@ -34,11 +34,11 @@ Barang
               </thead>
               <tbody>
                 <?php $no=0;
-                  $sql = "select distinct barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from barang left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id";
+                  $sql = "select distinct barang.satker_id, barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from barang left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id, barang.satker_id";
                   if($_SESSION['hak_akses']==2){
-                      $sql = "select distinct barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from barang left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id where satker_id=$satker_id group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id";
+                      $sql = "select distinct barang.satker_id, barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from barang left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id where satker_id=$satker_id group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id, barang.satker_id";
                   }elseif($_SESSION['hak_akses']==3){
-                      $sql = "select distinct barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from peminjam left join barang on peminjam.no_serial = barang.no_serial left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id where peminjam.nrp_peminjam = '$nrp' AND barang.status=0 group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id";
+                      $sql = "select distinct barang.satker_id, barang_jenis.id, barang_jenis.nama, satker.nama as satker, satker.id as satker_id, count(case when barang.kondisi=1 then 1 end) as baik, count(case when barang.kondisi=2 then 1 end) as rusak, count(case when barang.kondisi=3 then 1 end) as rusakberat, count(case when barang.kondisi=4 then 1 end) as dihapuskan from peminjam left join barang on peminjam.no_serial = barang.no_serial left join barang_jenis on barang.jenis_id = barang_jenis.id left join satker on barang.satker_id = satker.id where peminjam.nrp_peminjam = '$nrp' AND barang.status=0 group by barang_jenis.id, barang_jenis.nama, satker.nama, satker.id, barang.satker_id";
                   }
                   $eksekusi = pg_query($sql);
                   while ($data = pg_fetch_assoc($eksekusi)) {
@@ -53,7 +53,7 @@ Barang
                       <td class=" text-center"><?php echo $data['dihapuskan'];?></td>
                       <td class=" text-center"><?php echo $data['baik']+$data['rusak']+$data['rusakberat']+$data['dihapuskan'];?></td>
                       <td class="text-center" style="width:100px">
-                        <a href="/tb_pbd/view/barang/show.php?kategori=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">show</a>
+                        <a href="/tb_pbd/view/barang/show.php?kategori=<?php echo $data['id']; ?>&satker_id=<?php echo $data['satker_id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">show</a>
                       </td>
                   </tr>
                 <?php } ?>
@@ -203,28 +203,28 @@ Barang
             extend: 'copy',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7]
             }
         },
         {
             extend: 'print',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7]
             }
         },
         {
             extend: 'excel',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7]
             }
         },
         {
             extend: 'pdf',
             className: 'btn-inverse',
             exportOptions: {
-                columns: [0, 1]
+                columns: [0, 1, 2, 3, 4, 5, 6, 7]
             }
         }]
       });
