@@ -59,6 +59,9 @@ Pengembalian
       </div>
   </div>
 </div>
+<div class="text-center">
+  <a href="/tb_pbd/view/laporan/" class="btn btn-primary waves-effect waves-light">Back</a>
+</div>
 <?php endblock() ?>
 
 <?php startblock('table') ?>

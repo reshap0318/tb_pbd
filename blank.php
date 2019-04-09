@@ -32,7 +32,7 @@
     <meta name="keywords" content="management , Responsive, Landing, Bootstrap, App, Template, Mobile, iOS, Android, apple, creative app">
     <meta name="author" content="#">
     <!-- Favicon icon -->
-    <link rel="icon" href="/tb_pbd/img/icon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/tb_pbd/img/lea-logo.png" type="image/x-icon">
     <!-- Google font--><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
     <!-- Required Fremwork -->
     <link rel="stylesheet" type="text/css" href="/tb_pbd/editor/bower_components/bootstrap/css/bootstrap.min.css">
@@ -126,7 +126,7 @@
                         <i class="feather icon-menu"></i>
                     </a>
                     <a href="/tb_pbd/view">
-                        <img class="img-fluid" src="/tb_pbd/editor/assets/images/logo.png" alt="Theme-Logo" />
+                        <img class="img-fluid" src="/tb_pbd/img/lea-logo-name_1.png" alt="Theme-Logo" />
                     </a>
                     <a class="mobile-options">
                         <i class="feather icon-more-horizontal"></i>
@@ -179,26 +179,26 @@
                         <div class="pcoded-navigatio-lavel">Management</div>
                         <ul class="pcoded-item pcoded-left-item">
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/management/user">
+                                <a href="/tb_pbd/view/management/user">
                                     <span class="pcoded-micon"><i class="icofont icofont-users"></i></span>
                                     <span class="pcoded-mtext">Users</span>
                                 </a>
                             </li>
                             <?php if($hak_akses == 1){ ?>
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/management/satker">
+                                <a href="/tb_pbd/view/management/satker">
                                     <span class="pcoded-micon"><i class="icofont icofont-ui-office"></i></span>
                                     <span class="pcoded-mtext">Satuan Kerja</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/management/jabatan">
+                                <a href="/tb_pbd/view/management/jabatan">
                                     <span class="pcoded-micon"><i class="icofont icofont-robot-face"></i></span>
                                     <span class="pcoded-mtext">Jabatan</span>
                                 </a>
                             </li>
                             <li class="">
-                                <a href="http://localhost/tb_pbd/view/management/pangkat">
+                                <a href="/tb_pbd/view/management/pangkat">
                                     <span class="pcoded-micon"><i class="icofont icofont-throne"></i></span>
                                     <span class="pcoded-mtext">Pangkat</span>
                                 </a>
@@ -209,25 +209,25 @@
                         <div class="pcoded-navigatio-lavel">General</div>
                         <ul class="pcoded-item pcoded-left-item">
                           <li class="">
-                              <a href="http://localhost/tb_pbd/view/barang">
+                              <a href="/tb_pbd/view/barang">
                                   <span class="pcoded-micon"><i class="icofont icofont-social-dropbox"></i></span>
                                   <span class="pcoded-mtext">Barang</span>
                               </a>
                           </li>
                           <li class="">
-                              <a href="http://localhost/tb_pbd/view/peminjaman">
+                              <a href="/tb_pbd/view/peminjaman">
                                   <span class="pcoded-micon"><i class="icofont icofont-social-dropbox"></i></span>
                                   <span class="pcoded-mtext">Peminjaman</span>
                               </a>
                           </li>
                           <li class="">
-                              <a href="http://localhost/tb_pbd/view/pengembalian">
+                              <a href="/tb_pbd/view/pengembalian">
                                   <span class="pcoded-micon"><i class="icofont icofont-social-dropbox"></i></span>
                                   <span class="pcoded-mtext">Pengembalian</span>
                               </a>
                           </li>
                           <li class="">
-                              <a href="http://localhost/tb_pbd/view/laporan">
+                              <a href="/tb_pbd/view/laporan">
                                   <span class="pcoded-micon"><i class="icofont icofont-files"></i></span>
                                   <span class="pcoded-mtext">Laporan</span>
                               </a>
