@@ -13,6 +13,99 @@ Peminjaman
 <?php startblock('content') ?>
 <div class="card">
   <div class="card-block">
+    <form class="col-md-12" action="/tb_pbd/view/peminjaman/caripeminjaman.php" method="get">
+      <div class="row">
+        <div class="form-group row col-sm-4 text-right">
+          <label class="col-sm-4 col-form-label">Nama</label>
+          <div class="col-sm-8">
+              <input type="text" class="form-control" value="" name="nama" placeholder="nama ">
+              <span class="messages popover-valid"></span>
+          </div>
+        </div>
+        <div class="form-group row col-sm-4 text-right">
+          <label class="col-sm-4 col-form-label">No Serial</label>
+          <div class="col-sm-8">
+              <input type="text" class="form-control" value="" name="no_serial" placeholder="No Serial">
+              <span class="messages popover-valid"></span>
+          </div>
+        </div>
+        <div class="form-group row col-sm-4 text-right">
+          <label class="col-sm-4 col-form-label">Satker</label>
+          <div class="col-sm-8">
+              <select class="form-control " name="satker_id">
+                <option value="all">All</option>
+                <?php
+                  $sql = "select id, nama from satker";
+                  $eksekusi = pg_query($sql);
+                  while ($jenis = pg_fetch_assoc($eksekusi)) {
+                    if($jenis['id']==$data['satker_id']){
+                      echo '<option value="'.$jenis['id'].'" selected>'.$jenis['nama'].'</option>';
+                    }else{
+                      echo '<option value="'.$jenis['id'].'">'.$jenis['nama'].'</option>';
+                    }
+                  }
+                ?>
+              </select>
+              <span class="messages popover-valid"></span>
+          </div>
+        </div>
+        <div class="form-group row col-sm-4 text-right">
+          <label class="col-sm-4 col-form-label">Merek</label>
+          <div class="col-sm-8">
+              <select class="form-control " name="merek_id">
+                <option value="all">All</option>
+                <?php
+                  $sql = "select id, nama from merek";
+                  $eksekusi = pg_query($sql);
+                  while ($jenis = pg_fetch_assoc($eksekusi)) {
+                    if($jenis['id']==$data['merek_id']){
+                      echo '<option value="'.$jenis['id'].'" selected>'.$jenis['nama'].'</option>';
+                    }else{
+                      echo '<option value="'.$jenis['id'].'">'.$jenis['nama'].'</option>';
+                    }
+                  }
+                ?>
+              </select>
+              <span class="messages popover-valid"></span>
+          </div>
+        </div>
+        <div class="form-group row col-sm-4 text-right">
+          <label class="col-sm-4 col-form-label">Jenis</label>
+          <div class="col-sm-8">
+              <select class="form-control " name="jenis_id">
+                <option value="all">All</option>
+                <?php
+                  $sql = "select id, nama from barang_jenis";
+                  $eksekusi = pg_query($sql);
+                  while ($jenis = pg_fetch_assoc($eksekusi)) {
+                    if($jenis['id']==$data['jenis_id']){
+                      echo '<option value="'.$jenis['id'].'" selected>'.$jenis['nama'].'</option>';
+                    }else{
+                      echo '<option value="'.$jenis['id'].'">'.$jenis['nama'].'</option>';
+                    }
+                  }
+                ?>
+              </select>
+              <span class="messages popover-valid"></span>
+          </div>
+        </div>
+        <div class="form-group row col-sm-4 text-right">
+          <label class="col-sm-4 col-form-label">Tanggal</label>
+          <div class="col-sm-8">
+              <input type="date" class="form-control" value="" name="tanggal">
+              <span class="messages popover-valid"></span>
+          </div>
+        </div>
+        <div class="form-group row col-sm-12 text-center">
+          <button type="submit" class="btn btn-success col-sm-12">Cari</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-block">
       <div class="dt-responsive table-responsive">
           <table id="tblpeminjaman" class="table table-striped table-bordered nowrap" style="width:100%">
               <thead>

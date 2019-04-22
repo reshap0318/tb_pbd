@@ -26,7 +26,7 @@ Create Barang
             <div class="form-group row">
                 <label class="col-sm-2 col-form-label">No Serial</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" value="<?php if(isset($data['no_serial'])){echo $data['no_serial'];} ?>"  id="no_serial" name="no_serial" placeholder="ex : PTD.1.1.001" required>
+                    <input type="text" class="form-control" value="<?php if(isset($data['no_serial'])){echo $data['no_serial'];} ?>"  id="no_serial" name="no_serial" placeholder="ex : PTD-R-001" required>
                     <span class="messages popover-valid"></span>
                 </div>
             </div>
