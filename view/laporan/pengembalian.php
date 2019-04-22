@@ -74,14 +74,85 @@ Pengembalian
         dom: 'Bfrtip',
         buttons: [
         {
-            extend: 'copy',
-            className: 'btn-inverse',
-            exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5, 6, 7]
-            }
+            extend: 'collection',
+            text: 'Print',
+            buttons: [
+                {
+                    text: 'Januari',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=1&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Februari',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=2&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Maret',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=3&tahun=2019");
+                    }
+                },
+                {
+                    text: 'April',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=4&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Mei',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=5&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Juni',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=6&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Juli',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=7&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Agustus',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=8&tahun=2019");
+                    }
+                },
+                {
+                    text: 'September',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=9&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Oktober',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=10&tahun=2019");
+                    }
+                },
+                {
+                    text: 'November',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=11&tahun=2019");
+                    }
+                },
+                {
+                    text: 'Desember',
+                    action: function ( e, dt, node, config ) {
+                      window.location.assign("/tb_pbd/view/laporan/cetak_laporan/pengembalian.php?satker_id=<?php echo $satker_id; ?>&bulan=12&tahun=2019");
+                    }
+                }
+            ]
         },
         {
-            extend: 'print',
+            extend: 'copy',
             className: 'btn-inverse',
             exportOptions: {
                 columns: [0, 1, 2, 3, 4, 5, 6, 7]

@@ -72,14 +72,15 @@ Laporan Barang
         dom: 'Bfrtip',
         buttons: [
         {
-            extend: 'copy',
+            text: 'Print',
             className: 'btn-inverse',
-            exportOptions: {
-                columns: [0, 1, 2, 3, 4, 5, 6]
+            action: function(e, dt, node, config)
+            {
+              window.location.assign("/tb_pbd/view/laporan/cetak_laporan/barang.php?satker_id=<?php echo $satker_id; ?>");
             }
         },
         {
-            extend: 'print',
+            extend: 'copy',
             className: 'btn-inverse',
             exportOptions: {
                 columns: [0, 1, 2, 3, 4, 5, 6]

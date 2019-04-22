@@ -66,6 +66,9 @@ Barang
 <div class="row">
   <div class="col-md-6">
     <div class="card">
+      <div class="card-header">
+        Jenis Barang
+      </div>
       <div class="card-block">
           <div class="dt-responsive table-responsive">
               <table id="tablejenis" class="table table-striped table-bordered nowrap" style="width:100%">
@@ -111,6 +114,9 @@ Barang
   </div>
   <div class="col-md-6">
     <div class="card">
+      <div class="card-header">
+        Merek Barang
+      </div>
       <div class="card-block">
           <div class="dt-responsive table-responsive">
               <table id="tablemerek" class="table table-striped table-bordered nowrap" style="width:100%">
