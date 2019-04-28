@@ -30,7 +30,7 @@ Cari Peminjaman
                 <?php $no=0;
                   function cek($id)
                   {
-                      $sql = "select * from pengembalian where peminjaman_id = $id";
+                      $sql = "select * from pengembalian where peminjaman_id = '$id'";
                       $eksekusi = pg_query($sql);
                       $total = 0;
                       while ($datas = pg_fetch_assoc($eksekusi)) {
@@ -76,15 +76,15 @@ Cari Peminjaman
                   $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from peminjam join barang on peminjam.no_serial = barang.no_serial join users on peminjam.nrp_peminjam = users.nrp join merek on barang.merek_id = merek.id join barang_jenis on barang.jenis_id = barang_jenis.id where barang.no_serial <> '0'";
 
                   if($merek_id != 'all'){
-                      $sql .= " and barang.merek_id = $merek_id";
+                      $sql .= " and barang.merek_id = '$merek_id'";
                   }
 
                   if($jenis_id != 'all'){
-                      $sql .= " and barang.jenis_id = $jenis_id";
+                      $sql .= " and barang.jenis_id = '$jenis_id'";
                   }
 
                   if($satker_id != 'all'){
-                      $sql .= " and barang.satker_id = $satker_id";
+                      $sql .= " and barang.satker_id = '$satker_id'";
                   }
 
                   if($nama!=""){
@@ -102,7 +102,7 @@ Cari Peminjaman
 
 
                   if($hak_akses==3){
-                    $sql .= " and nrp = $nrp";
+                    $sql .= " and nrp = '$nrp'";
                   }
 
                   $eksekusi = pg_query($sql);

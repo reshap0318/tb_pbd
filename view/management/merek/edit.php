@@ -27,7 +27,7 @@ Edit Merek
         <form id="second" action="/tb_pbd/controller/merekController.php?aksi=update" method="post" novalidate>
             <?php
               $id = $_GET['id'];
-              $sql = "select * from merek where id=$id";
+              $sql = "select * from merek where id='$id'";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>

@@ -143,14 +143,14 @@
         }
 
         if($no_serial!=$no_serial_sebelum){
-          $sqlupbar1 = "update barang set status=1 where no_serial='$no_serial_sebelum'";
+          $sqlupbar1 = "update barang set status='1' where no_serial='$no_serial_sebelum'";
           $eksekusi1 = pg_query($sqlupbar1);
 
-          $sqlupbar2 = "update barang set status=0 where no_serial='$no_serial[0]'";
+          $sqlupbar2 = "update barang set status='0' where no_serial='$no_serial[0]'";
           $eksekusi2 = pg_query($sqlupbar2);
         }
       }
-      $sql = "update public.peminjam SET tanggal='$tanggal', kondisi=$kondisi, nrp_peminjam='$nrp_peminjam', nrp_pemberi='$nrp_pemberi', keterangan='$keterangan', no_serial='$no_serial[0]' where id=$id";
+      $sql = "update public.peminjam SET tanggal='$tanggal', kondisi='$kondisi', nrp_peminjam='$nrp_peminjam', nrp_pemberi='$nrp_pemberi', keterangan='$keterangan', no_serial='$no_serial[0]' where id='$id'";
   }
 
 
@@ -158,14 +158,14 @@
       $status = 'berhasil';
       array_push($_SESSION['pesan'],[$status,'Berhasil Menghapus Peminjaman Barang']);
 
-      $peminjaman_no_serial = "select no_serial from peminjam where id=$id";
+      $peminjaman_no_serial = "select no_serial from peminjam where id='$id'";
       $eksekusi_no_serial = pg_query($peminjaman_no_serial);
       while ($data = pg_fetch_assoc($eksekusi_no_serial)) {
         $no_serial = $data['no_serial'];
-        $sqlupbar = "update barang set status=1 where no_serial='$no_serial'";
+        $sqlupbar = "update barang set status='1' where no_serial='$no_serial'";
         $eksekusi = pg_query($sqlupbar);
       }
-      $sql = "delete from peminjam where id = $id";
+      $sql = "delete from peminjam where id = '$id'";
   }
 
   if($status != 'eror' && $aksi!='create'){

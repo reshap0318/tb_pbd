@@ -27,7 +27,7 @@ Edit Barang
               $no_serial = $_GET['no_serial'];
               $sql = "select * from barang where no_serial='$no_serial'";
               if($hak_akses==2){
-                $sql = "select * from barang where no_serial='$no_serial' AND satker_id=$satker_id";
+                $sql = "select * from barang where no_serial='$no_serial' AND satker_id='$satker_id'";
               }
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {

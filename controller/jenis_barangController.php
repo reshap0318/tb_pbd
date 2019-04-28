@@ -53,7 +53,7 @@
   elseif($aksi=='update' && $status != 'eror'){
       $status = 'berhasil';
       array_push($_SESSION['pesan'],[$status,'Berhasil Mengubah Jenis Barang']);
-      $sql = "update barang_jenis set nama='$nama' where id = $id";
+      $sql = "update barang_jenis set nama='$nama' where id = '$id'";
   }
 
 

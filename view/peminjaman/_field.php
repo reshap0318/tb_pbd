@@ -5,7 +5,7 @@
           <?php
             $sql = "select nrp, nama from users";
             if($hak_akses==2){
-              $sql = "select nrp, nama from users where satker_id = $satker_id";
+              $sql = "select nrp, nama from users where satker_id = '$satker_id'";
             }
             $eksekusi = pg_query($sql);
             while ($jenis = pg_fetch_assoc($eksekusi)) {
@@ -26,7 +26,7 @@
     <div class="col-sm-8">
         <select id="no_serial" name="no_serial[]" class="js-example-basic-multiple" multiple="multiple" disabled>
           <?php
-            $sql = "select no_serial from barang where status=1";
+            $sql = "select no_serial from barang where status='1'";
             $eksekusi = pg_query($sql);
             while ($barang = pg_fetch_assoc($eksekusi)) {
               echo '<option value="'.$barang['no_serial'].'">'.$barang['no_serial'].'</option>';

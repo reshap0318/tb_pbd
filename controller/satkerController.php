@@ -41,19 +41,33 @@
         $status = 'eror';
         array_push($_SESSION['pesan'],[$status,'Pastikan Nama Terisi Dengan Benar']);
       }
+
+      if(isset($_POST['kepala'])){
+        $kepala = $_POST['kepala'];
+      }else{
+        $status = 'eror';
+        array_push($_SESSION['pesan'],[$status,'Pastikan Kepala Terisi Dengan Benar']);
+      }
+
+      if(isset($_POST['nrp'])){
+        $nrp = $_POST['nrp'];
+      }else{
+        $status = 'eror';
+        array_push($_SESSION['pesan'],[$status,'Pastikan NRP Kepala Terisi Dengan Benar']);
+      }
   }
 
   if($aksi=='create' && $status != 'eror'){
       $status = 'berhasil';
       array_push($_SESSION['pesan'],[$status,'Berhasil Menambahkan Satuan Kerja']);
 
-      $sql = "insert into satker(id,nama) values ('$id','$nama')";
+      $sql = "insert into satker(id,nama,kepala,nrp) values ('$id','$nama','$kepala','$nrp')";
   }
 
   elseif($aksi=='update' && $status != 'eror'){
       $status = 'berhasil';
       array_push($_SESSION['pesan'],[$status,'Berhasil Merubah Satuan Kerja']);
-      $sql = "update satker set nama='$nama' where id = '$id'";
+      $sql = "update satker set nama='$nama',kepala='$kepala',nrp = '$nrp' where id = '$id'";
   }
 
   elseif($aksi=='delete' && $status != 'eror'){

@@ -30,6 +30,8 @@ Satuan Kerja
                   <tr>
                       <th style="width:20px" class="text-center">NO</th>
                       <th>Satuan Kerja</th>
+                      <th>Kepala</th>
+                      <th>NRP Kepala</th>
                       <th style="width:100px">Action</th>
                   </tr>
               </thead>
@@ -42,6 +44,8 @@ Satuan Kerja
                   <tr>
                       <td style="width:20px" class="text-center"><?php echo ++$no;?></td>
                       <td><?php echo $data['nama'];?></td>
+                      <td><?php echo $data['kepala'];?></td>
+                      <td><?php echo $data['nrp'];?></td>
                       <td style="width:100px">
                         <a href="/tb_pbd/view/management/satker/edit.php?id=<?php echo $data['id']; ?>" class="btn btn-primary btn-mini waves-effect waves-light">Edit</a>
                         <a href="#" class="btn btn-danger btn-mini waves-effect waves-light" onclick="hapus(<?php echo $data['id']; ?>)">Delete</a>

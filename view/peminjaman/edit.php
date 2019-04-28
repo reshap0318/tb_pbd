@@ -24,9 +24,9 @@ Edit Peminjaman
         <form id="second" action="/tb_pbd/controller/peminjamanController.php?aksi=update" method="post" novalidate>
             <?php
               $id = $_GET['id'];
-              $sql = "select * from peminjam where id=$id";
+              $sql = "select * from peminjam where id='$id'";
               if($hak_akses==2){
-                $sql = "select peminjam.* from peminjam join barang on peminjam.no_serial = barang.no_serial where id=$id AND satker_id=$satker_id";
+                $sql = "select peminjam.* from peminjam join barang on peminjam.no_serial = barang.no_serial where id='$id' AND satker_id='$satker_id'";
               }
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
@@ -67,7 +67,10 @@ Edit Peminjaman
                     <select onchange="ganti()" id="no_serial" name="no_serial[]" class="js-example-basic-multiple" multiple="multiple">
                       <?php
                         $no_serial = $data['no_serial'];
-                        $sql = "select no_serial from barang where status=1 OR no_serial='$no_serial'";
+                        $sql = "select no_serial from barang where status='1' OR no_serial='$no_serial'";
+                        if($hak_akses==2){
+                          $sql = "select no_serial from barang where status='1' AND satker_id = '$satker_id' OR no_serial='$no_serial' ";
+                        }
                         $eksekusi = pg_query($sql);
                         while ($barang = pg_fetch_assoc($eksekusi)) {
                           if($barang['no_serial']==$data['no_serial']){
@@ -100,6 +103,7 @@ Edit Peminjaman
     </div>
 </div>
 <input id="hiden" type="hidden" name="no_serial" value="">
+<?php include $_SERVER['DOCUMENT_ROOT'].'/tb_pbd/view/peminjaman/_adduser.php'; ?>
 <?php endblock() ?>
 
 <?php startblock('script') ?>

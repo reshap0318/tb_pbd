@@ -25,7 +25,7 @@ Edit Jabatan
         <form id="second" action="/tb_pbd/controller/jabatanController.php?aksi=update" method="post" novalidate>
             <?php
               $id = $_GET['id'];
-              $sql = "select * from jabatan where id=$id";
+              $sql = "select * from jabatan where id='$id'";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>

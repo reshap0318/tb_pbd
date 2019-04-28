@@ -24,7 +24,7 @@ Edit Satuan Kerja
         <form id="second" action="/tb_pbd/controller/satkerController.php?aksi=update" method="post" novalidate>
             <?php
               $id = $_GET['id'];
-              $sql = "select * from satker where id=$id";
+              $sql = "select * from satker where id='$id'";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
