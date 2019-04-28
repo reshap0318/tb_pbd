@@ -47,6 +47,11 @@ Cari Barang
 
                   $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id where barang.no_serial <> '0' ";
 
+                  if($hak_akses==3){
+                    $sql = "select barang.no_serial, barang.tahun_perolehan, barang_jenis.nama as jenis, merek.nama as merek, satker.nama as satker, barang.kondisi, barang.status from barang join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join satker on barang.satker_id = satker.id join peminjam on barang.no_serial = peminjam.no_serial where barang.no_serial <> '0' ";
+                    $sql .= "and barang.status = '0' and nrp_peminjam = '$nrp'";
+                  }
+
                   if($merek_id != 'all'){
                       $sql .= " and barang.merek_id = '$merek_id'";
                   }
@@ -57,10 +62,6 @@ Cari Barang
 
                   if($satker_id != 'all'){
                       $sql .= " and barang.satker_id = '$satker_id'";
-                  }
-
-                  if($hak_akses==3){
-                    $sql .= " and nrp = '$nrp'";
                   }
 
                   // die($sql);

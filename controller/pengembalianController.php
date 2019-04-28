@@ -77,16 +77,16 @@
   if($aksi=='create' && $status != 'eror'){
         $status = 'berhasil';
         array_push($_SESSION['pesan'],[$status,'Berhasil Pengembalikan Barang']);
-        $sqlcarikode = "select barang.no_serial from peminjam join barang on peminjam.no_serial = barang.no_serial where peminjam.id=$peminjaman_id";
+        $sqlcarikode = "select barang.no_serial from peminjam join barang on peminjam.no_serial = barang.no_serial where peminjam.id='$peminjaman_id'";
         $eksekusi = pg_query($sqlcarikode);
         while ($data = pg_fetch_assoc($eksekusi)) {
             $kode = $data['no_serial'];
         }
 
-        $sqlupbar = "update barang set status=1, kondisi=$kondisi where no_serial='$kode'";
+        $sqlupbar = "update barang set status='1', kondisi=$kondisi where no_serial='$kode'";
         $eksekusi = pg_query($sqlupbar);
 
-        $sql = "INSERT INTO public.pengembalian(tanggal, nrp_penerima, kondisi, keterangan, peminjaman_id) VALUES ('$tanggal', '$nrp_penerima', $kondisi, '$keterangan', $peminjaman_id);";
+        $sql = "INSERT INTO public.pengembalian(tanggal, nrp_penerima, kondisi, keterangan, peminjaman_id) VALUES ('$tanggal', '$nrp_penerima', '$kondisi', '$keterangan','$peminjaman_id');";
   }
 
 
@@ -96,12 +96,12 @@
 
         $kondisi_sekarang = null;
         $no_serial_sekarang = null;
-        $sql_data_peminjaman = "select kondisi, no_serial from peminjam where id=$peminjaman_id";
+        $sql_data_peminjaman = "select kondisi, no_serial from peminjam where id='$peminjaman_id'";
         $eksekusi_data_peminjam = pg_query($sql_data_peminjaman);
         while ($data = pg_fetch_assoc($eksekusi_data_peminjam)) {
             $no_serial_sekarang = $data['no_serial'];
         }
-        $sqlupbar2 = "update barang set status=1, kondisi=$kondisi where no_serial='$no_serial_sekarang'";
+        $sqlupbar2 = "update barang set status='1', kondisi=$kondisi where no_serial='$no_serial_sekarang'";
         $eksekusi2 = pg_query($sqlupbar2);
 
         if(isset($_POST['peminjaman_id_sebelum'])){
@@ -110,18 +110,18 @@
 
             $kondisi_sebelum = null;
             $no_serial_sebelum = null;
-            $sql_data_peminjaman = "select kondisi, no_serial from peminjam where id=$peminjaman_id_sebelum";
+            $sql_data_peminjaman = "select kondisi, no_serial from peminjam where id='$peminjaman_id_sebelum'";
             $eksekusi_data_peminjam = pg_query($sql_data_peminjaman);
             while ($data = pg_fetch_assoc($eksekusi_data_peminjam)) {
                 $kondisi_sebelum = $data['kondisi'];
                 $no_serial_sebelum = $data['no_serial'];
             }
 
-            $sqlupbar1 = "update barang set status=0, kondisi=$kondisi_sebelum where no_serial='$no_serial_sebelum'";
+            $sqlupbar1 = "update barang set status='0', kondisi=$kondisi_sebelum where no_serial='$no_serial_sebelum'";
             $eksekusi1 = pg_query($sqlupbar1);
           }
         }
-        $sql = "update public.pengembalian SET tanggal='$tanggal', nrp_penerima='$nrp_penerima', kondisi=$kondisi, keterangan='$keterangan', peminjaman_id=$peminjaman_id WHERE id=$id";
+        $sql = "update public.pengembalian SET tanggal='$tanggal', nrp_penerima='$nrp_penerima', kondisi='$kondisi', keterangan='$keterangan', peminjaman_id='$peminjaman_id' WHERE id='$id'";
         // die($sql);
   }
 
@@ -129,7 +129,7 @@
   elseif($aksi=='delete' && $status != 'eror'){
       $status = 'berhasil';
       array_push($_SESSION['pesan'],[$status,'Berhasil Menghapus Pengembalian']);
-      $data_peminjam = "select peminjam.kondisi, peminjam.no_serial from pengembalian join peminjam on pengembalian.peminjaman_id = peminjam.id where pengembalian.id=$id";
+      $data_peminjam = "select peminjam.kondisi, peminjam.no_serial from pengembalian join peminjam on pengembalian.peminjaman_id = peminjam.id where pengembalian.id='$id'";
       $eksekusi_data_peminjam = pg_query($data_peminjam);
       $kondisi = null;
       $no_serial =null;
@@ -138,7 +138,7 @@
           $no_serial = $data['no_serial'];
       }
       // die(var_dump([$kondisi,$no_serial]));
-      $sql_rubah_barang = "update barang set kondisi = $kondisi, status = 0 where no_serial = '$no_serial'";
+      $sql_rubah_barang = "update barang set kondisi = $kondisi, status = '0' where no_serial = '$no_serial'";
       $eksekusi_sql_rubah_barang = pg_query($sql_rubah_barang);
       $sql = "delete from pengembalian where id = '$id'";
   }

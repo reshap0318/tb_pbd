@@ -7,8 +7,11 @@
   $nrp = $_SESSION['nrp'];
   $hak_akses = $_SESSION['hak_akses'];
   $nama = null;
+  $kepala = null;
+  $nrp_kepala = null;
   $bulan = date('n');
   $tahun = date('Y');
+  $tanggal = date('d');
 
   if(isset($_GET['satker_id'])){
     $satker = $_GET['satker_id'];
@@ -17,9 +20,9 @@
     header("location:/tb_pbd/view/laporan/");
   }
 
-  $sql = "Select * from satker where id = $satker ";
+  $sql = "Select * from satker where id = '$satker' ";
   if(!$hak_akses==1){
-    $sql = "Select * from satker where id = $satker_id ";
+    $sql = "Select * from satker where id = '$satker_id' ";
   }
 
   $sql .= " Limit 1";
@@ -27,6 +30,8 @@
   $eksekusi = pg_query($sql);
   while ($data = pg_fetch_assoc($eksekusi)) {
     $nama = $data['nama'];
+    $kepala = $data['kepala'];
+    $nrp_kepala = $data['nrp'];
     $satker_id = $data['id'];
   }
 
@@ -98,8 +103,10 @@
           <tbody>
             <?php
 
-                $sql = "select barang.no_serial, barang_jenis.nama as jenis, barang.tahun_perolehan, merek.nama as merek, barang.kondisi, barang.type, barang.status from satker join barang on satker.id = barang.satker_id join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where satker_id = $satker_id ";
-
+                $sql = "select barang.no_serial, barang_jenis.nama as jenis, barang.tahun_perolehan, merek.nama as merek, barang.kondisi, barang.type, barang.status from satker join barang on satker.id = barang.satker_id join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id where satker_id = '$satker_id' ";
+                if($hak_akses==3){
+                  $sql = "select barang.no_serial, barang_jenis.nama as jenis, barang.tahun_perolehan, merek.nama as merek, barang.kondisi, barang.type, barang.status from satker join barang on satker.id = barang.satker_id join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join peminjam on barang.no_serial = peminjam.no_serial where satker_id = '$satker_id' AND nrp_peminjam = '$nrp' AND barang.status = '0'";
+                }
                 $eksekusi = pg_query($sql);
                 while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
@@ -116,8 +123,28 @@
           <?php } ?>
           </tbody>
         </table>
-
       </center>
+      <br><br>
+      <div align="right">
+        <table border="1">
+          <tr>
+            <td style="padding-left:10px;padding-right:10px;">
+              <center>
+               <?php echo $nama; ?>, <?php echo $tanggal.' '.$bulan.' '.$tahun; ?>
+                <br>
+                Mengetahui,
+                <br>
+                <b>Kepala Satuan Kerja</b>
+                <br>
+                <br><br><br>
+                <b> <u><?php echo $kepala; ?></u> </b>
+                <br>
+                <b>NRP. <?php echo $nrp_kepala; ?></b>
+              </center>
+            </td>
+          </tr>
+        </table>
+      </div>
   </body>
 </html>
 

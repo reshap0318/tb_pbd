@@ -26,7 +26,7 @@ Laporan
                 <?php $no=0;
                   $sql = "select * from satker";
                   if($hak_akses!=1){
-                    $sql = "select * from satker where id = $satker_id";
+                    $sql = "select * from satker where id = '$satker_id'";
                   }
                   $eksekusi = pg_query($sql);
                   while ($data = pg_fetch_assoc($eksekusi)) {

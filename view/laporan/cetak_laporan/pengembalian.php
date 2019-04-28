@@ -7,6 +7,9 @@
   $nrp = $_SESSION['nrp'];
   $hak_akses = $_SESSION['hak_akses'];
   $nama = null;
+  $kepala = null;
+  $nrp_kepala = null;
+  $tanggal = date('d');
 
   if( isset($_GET['bulan']) && isset($_GET['tahun']) ){
     $bulan = $_GET['bulan'];
@@ -24,9 +27,9 @@
     header("location:/tb_pbd/view/laporan/");
   }
 
-  $sql = "Select * from satker where id = $satker ";
+  $sql = "Select * from satker where id = '$satker' ";
   if(!$hak_akses==1){
-    $sql = "Select * from satker where id = $satker_id ";
+    $sql = "Select * from satker where id = '$satker_id' ";
   }
 
   $sql .= " Limit 1";
@@ -34,6 +37,8 @@
   $eksekusi = pg_query($sql);
   while ($data = pg_fetch_assoc($eksekusi)) {
     $nama = $data['nama'];
+    $kepala = $data['kepala'];
+    $nrp_kepala = $data['nrp'];    
     $satker_id = $data['id'];
   }
 
@@ -108,9 +113,9 @@
                 $sql = "select pengembalian.id, users.nama, pengembalian.tanggal as tglkembali, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal as tglpinjam, pengembalian.kondisi from pengembalian join peminjam on pengembalian.peminjaman_id = peminjam.id join barang on peminjam.no_serial = barang.no_serial join merek on barang.merek_id = merek.id join barang_jenis on barang.jenis_id = barang_jenis.id join users on peminjam.nrp_peminjam = users.nrp";
 
                 if($hak_akses==3){
-                  $sql = " where peminjam.nrp_peminjam = '$nrp'";
+                  $sql .= " where peminjam.nrp_peminjam = '$nrp'";
                 }else{
-                  $sql .= " where barang.satker_id=$satker_id";
+                  $sql .= " where barang.satker_id='$satker_id'";
                 }
 
                 if( isset($_GET['bulan']) && isset($_GET['tahun']) ){
@@ -135,8 +140,29 @@
           <?php } ?>
           </tbody>
         </table>
-
       </center>
+
+      <br><br>
+      <div align="right">
+        <table border="1">
+          <tr>
+            <td style="padding-left:10px;padding-right:10px;">
+              <center>
+               <?php echo $nama; ?>, <?php echo $tanggal.' '.$bulan.' '.$tahun; ?>
+                <br>
+                Mengetahui,
+                <br>
+                <b>Kepala Satuan Kerja</b>
+                <br>
+                <br><br><br>
+                <b> <u><?php echo $kepala; ?></u> </b>
+                <br>
+                <b>NRP. <?php echo $nrp_kepala; ?></b>
+              </center>
+            </td>
+          </tr>
+        </table>
+      </div>
   </body>
 </html>
 

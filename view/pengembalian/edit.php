@@ -25,7 +25,7 @@ Edit Pengembalian
         <form id="second" action="/tb_pbd/controller/pengembalianController.php?aksi=update" method="post" novalidate>
             <?php
               $id = $_GET['id'];
-              $sql = "select pengembalian.*, peminjam.no_serial from pengembalian join peminjam on pengembalian.peminjaman_id = peminjam.id where pengembalian.id=$id";
+              $sql = "select pengembalian.*, peminjam.no_serial from pengembalian join peminjam on pengembalian.peminjaman_id = peminjam.id where pengembalian.id='$id'";
               $eksekusi = pg_query($sql);
               while ($data = pg_fetch_assoc($eksekusi)) {
             ?>
@@ -46,9 +46,9 @@ Edit Pengembalian
                     <select onchange="ganti()" id="peminjaman_id" name="peminjaman_id" class="js-example-basic-single">
                       <?php
                         $peminjaman_id = $data['peminjaman_id'];
-                        $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from barang join peminjam on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join users on peminjam.nrp_peminjam = users.nrp where barang.status = 0 OR peminjam.id=$peminjaman_id";
+                        $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from barang join peminjam on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join users on peminjam.nrp_peminjam = users.nrp where barang.status = '0' OR peminjam.id='$peminjaman_id'";
                         if($hak_akses==2){
-                          $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from barang join peminjam on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join users on peminjam.nrp_peminjam = users.nrp where barang.status = 0 OR peminjam.id=$peminjaman_id AND satker_id = $satker_id";
+                          $sql = "select peminjam.id, users.nama, barang.no_serial, barang_jenis.nama as jenis, merek.nama as merek, peminjam.tanggal from barang join peminjam on peminjam.no_serial = barang.no_serial join barang_jenis on barang.jenis_id = barang_jenis.id join merek on barang.merek_id = merek.id join users on peminjam.nrp_peminjam = users.nrp where barang.status = '0' OR peminjam.id='$peminjaman_id' AND barang.satker_id = '$satker_id'";
                         }
                         $eksekusi = pg_query($sql);
                         while ($barang = pg_fetch_assoc($eksekusi)) {
